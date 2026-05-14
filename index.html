@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Café Kids | Coffee & Play Uruguay 2026</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
@@ -19,6 +20,7 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--crema); color: var(--cafe); margin: 0; overflow-x: hidden; }
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
+        /* Textura de fondo */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
@@ -26,30 +28,47 @@
         }
 
         .nav-glass { background: rgba(255, 249, 254, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(139, 94, 78, 0.1); }
-        .btn-naranja { background-color: var(--naranja); color: white; transition: 0.3s; box-shadow: 0 10px 20px rgba(217, 125, 13, 0.2); }
+        .btn-naranja { background-color: var(--naranja); color: white; transition: 0.3s; box-shadow: 0 10px 20px rgba(217, 125, 13, 0.2); border: none; cursor: pointer; }
         
+        /* Menu Tabs */
         .tab-btn.active { background-color: var(--terracota); color: white; border-color: var(--terracota); }
         .menu-item { border-bottom: 1px solid rgba(139, 94, 78, 0.1); padding: 10px 0; display: flex; justify-content: space-between; font-size: 0.9rem; }
         .category-header { color: var(--terracota); font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; border-bottom: 2px solid var(--beige); margin: 2rem 0 1rem 0; }
 
-        /* Estilo Compromiso solicitado */
+        /* Compromiso */
         .compromiso-box { background: white; border-radius: 40px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
         .reglamento-brown { background: #966b5d; color: #fdf2f0; padding: 30px; border-radius: 30px; }
         .custom-scroll::-webkit-scrollbar { width: 5px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 10px; }
 
-        /* Resultado de Local Cercano */
-        #resultado-cercano { display: none; background: #fff8f0; border: 2px solid var(--naranja); border-radius: 2rem; margin-bottom: 2rem; padding: 2rem; animation: slideIn 0.5s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Resultado dinámico */
+        #resultado-cercano { display: none; background: #fffcf0; border: 2px solid var(--naranja); border-radius: 2.5rem; margin-bottom: 3rem; padding: 2.5rem; }
 
-        .map-frame { width: 100%; height: 200px; border-radius: 20px; border: none; }
-        #loader { position: fixed; inset: 0; z-index: 9999; background: var(--beige); display: flex; align-items: center; justify-content: center; }
+        /* Mapas */
+        .map-frame { width: 100%; height: 200px; border-radius: 25px; border: none; margin-top: 15px; }
+
+        /* LOADER CORREGIDO */
+        #loader { 
+            position: fixed; 
+            inset: 0; 
+            z-index: 9999; 
+            background: var(--beige); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transition: opacity 0.6s ease-out;
+        }
+        .loader-hidden { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <div id="loader"><img src="logo-cafekids.png" alt="Café Kids" class="w-48 animate-pulse"></div>
+    <!-- Pantalla de Carga -->
+    <div id="loader">
+        <img src="logo-cafekids.png" alt="Cargando..." class="w-48 animate-pulse">
+    </div>
 
+    <!-- Navegación -->
     <nav class="nav-glass fixed w-full z-[60] px-6 md:px-12 py-3 flex justify-between items-center">
         <img src="logo-cafekids.png" alt="Logo" class="h-10 md:h-12">
         <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest">
@@ -59,7 +78,7 @@
             <a href="#locales">Locales</a>
             <a href="#compromiso">Seguridad</a>
         </div>
-        <button onclick="findNearest()" class="btn-naranja px-6 py-2 rounded-full text-[10px] font-bold uppercase">¿Cuál me queda cerca?</button>
+        <button onclick="findNearest()" class="btn-naranja px-6 py-2 rounded-full text-[10px] font-bold uppercase">Local más cercano</button>
     </nav>
 
     <!-- HERO -->
@@ -67,7 +86,7 @@
         <div class="max-w-4xl">
             <span class="bg-[var(--cafe)] text-white px-4 py-1 rounded-full text-[9px] uppercase font-black tracking-widest mb-6 inline-block italic">Uruguay • Est. 2012</span>
             <h1 class="text-6xl md:text-[7.5rem] font-bold leading-[0.95] mb-6 tracking-tighter">
-                Tu café, <br><span class="italic font-light text-[var(--terracota)]">su mundo mágico.</span>
+                Tu café, <br><span class="italic font-light text-[var(--terracota)]">su lugar feliz.</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-500 italic max-w-2xl mx-auto">Experiencias familiares premium. Jugar es un derecho y lo celebramos cada día.</p>
         </div>
@@ -75,68 +94,55 @@
 
     <!-- NOSOTROS -->
     <section id="nosotros" class="py-24 px-6 bg-white rounded-[4rem]">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="space-y-8">
-                    <h2 class="text-5xl italic leading-tight">Somos Familia</h2>
-                    <p class="text-gray-600 font-light leading-relaxed italic">
-                        Emprendedores desde hace más de 10 años en el rubro eventos. Friends Fiestas y Friends Kids nos dieron la experiencia para crear Café Kids: el sueño que como padres deseábamos vivir cuando nuestras hijas eran pequeñas. 
-                    </p>
-                    <p class="text-gray-600 font-light leading-relaxed">
-                        Hoy nuestras hijas de <strong>7 y 9 años</strong> son parte activa, ayudándonos a crear experiencias reales para las familias. Un lugar ideal para trabajar o disfrutar un café mientras ellos juegan contenidos.
-                    </p>
-                </div>
-                <div class="rounded-[3rem] overflow-hidden shadow-2xl h-[450px]">
-                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
-                </div>
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <h2 class="text-5xl italic leading-tight">Somos Familia</h2>
+                <p class="text-gray-600 font-light leading-relaxed italic italic">
+                    Emprendedores desde hace más de 10 años en el rubro eventos. Friends Fiestas y Friends Kids nos dieron la experiencia para crear Café Kids: el sueño que como padres deseábamos vivir cuando nuestras hijas eran pequeñas. 
+                </p>
+                <p class="text-gray-600 font-light leading-relaxed italic italic">
+                    Hoy nuestras hijas de <strong>7 y 9 años</strong> nos ayudan a crear experiencias reales para las familias. Un lugar ideal para trabajar o disfrutar un café mientras ellos juegan contenidos.
+                </p>
+            </div>
+            <div class="rounded-[3rem] overflow-hidden shadow-2xl h-[450px]">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
             </div>
         </div>
     </section>
 
-    <!-- CARTA 2026 -->
+    <!-- CARTA 2026 COMPLETA -->
     <section id="menu-completo" class="py-24 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-5xl italic mb-4">Nuestra Carta 2026</h2>
+                <h2 class="text-5xl italic mb-4 text-[var(--cafe)]">Nuestra Carta 2026</h2>
                 <div class="flex flex-wrap justify-center gap-2 mt-8">
-                    <button onclick="showTab('salados')" class="tab-btn active px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Salados</button>
-                    <button onclick="showTab('kids')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Platos Kids</button>
-                    <button onclick="showTab('cafe')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Cafetería</button>
-                    <button onclick="showTab('bebidas')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Bebidas</button>
-                    <button onclick="showTab('celiaco')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase text-green-700">Sin Gluten</button>
+                    <button onclick="showTab('salados')" class="tab-btn active px-5 py-2 rounded-full border text-[10px] font-bold uppercase transition">Salados</button>
+                    <button onclick="showTab('kids')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold uppercase transition">Kids</button>
+                    <button onclick="showTab('cafe')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold uppercase transition">Café</button>
+                    <button onclick="showTab('bebidas')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold uppercase transition">Bebidas</button>
+                    <button onclick="showTab('celiaco')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold uppercase text-green-700">Sin Gluten</button>
                 </div>
             </div>
 
+            <!-- Contenidos de la Carta -->
             <div id="salados" class="tab-content grid md:grid-cols-2 gap-x-12">
-                <div>
-                    <h4 class="category-header">Favoritos Salados</h4>
-                    <div class="menu-item"><span>Sándwich Caliente JyQ (Pan miga)</span><span>$360</span></div>
-                    <div class="menu-item"><span>Sándwich Frío JyQ / Bondiola</span><span>$350</span></div>
-                    <div class="menu-item"><span>Croissant Hojaldre Relleno</span><span>$260</span></div>
-                    <div class="menu-item"><span>Chipá de Queso</span><span>$190</span></div>
-                </div>
-                <div>
-                    <h4 class="category-header">Refuercitos & Tostones</h4>
-                    <div class="menu-item font-bold"><span>Refuercitos Pan Casero (Varios)</span><span>$310</span></div>
-                    <div class="menu-item"><span>Tostón Masa Madre c/ Palta y Huevo</span><span>$310</span></div>
-                </div>
+                <div><h4 class="category-header">Favoritos Salados</h4><div class="menu-item"><span>Sándwich Caliente JyQ (Pan miga)</span><span>$360</span></div><div class="menu-item"><span>Sándwich Frío JyQ / Bondiola</span><span>$350</span></div><div class="menu-item"><span>Pan de Nuez Relleno</span><span>$310</span></div></div>
+                <div><h4 class="category-header">Tostones</h4><div class="menu-item"><span>Tostón Masa Madre c/ Palta</span><span>$310</span></div><div class="menu-item"><span>Scon de Queso Relleno</span><span>$220</span></div></div>
             </div>
-
-            <!-- ... (Resto de tabs simplificados para el ejemplo, pero con estructura 2026) ... -->
-             <div id="kids" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
+            <div id="kids" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
                 <div><h4 class="category-header">Kids</h4><div class="menu-item"><span>Hamburguesa Casera Kids</span><span>$320</span></div><div class="menu-item"><span>Mini Pizzeta Mickey</span><span>$140</span></div></div>
-                <div><h4 class="category-header">Platos</h4><div class="menu-item"><span>Wrap Masa Casera</span><span>$390</span></div></div>
+                <div><h4 class="category-header">Cocina</h4><div class="menu-item font-bold"><span>Al Pan Casero Completo</span><span>$520</span></div></div>
             </div>
             <div id="cafe" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
-                <div><h4 class="category-header">Honduras Coffee</h4><div class="menu-item"><span>Flat White</span><span>$200</span></div></div>
-                <div><h4 class="category-header">Especiales</h4><div class="menu-item"><span>Submarino</span><span>$210</span></div></div>
+                <div><h4 class="category-header">Café Honduras</h4><div class="menu-item"><span>Flat White</span><span>$200</span></div><div class="menu-item font-bold"><span>Capuchino</span><span>$200</span></div></div>
+                <div><h4 class="category-header">Especiales</h4><div class="menu-item"><span>Submarino</span><span>$210</span></div><div class="menu-item"><span>Moka</span><span>$260</span></div></div>
             </div>
             <div id="bebidas" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
-                <div><h4 class="category-header">Naturales</h4><div class="menu-item"><span>Limonada Menta</span><span>$180</span></div></div>
-                <div><h4 class="category-header">Refrescos</h4><div class="menu-item"><span>Jarra Coca Cola 1.5L</span><span>$310</span></div></div>
+                <div><h4 class="category-header">Naturales</h4><div class="menu-item"><span>Limonada Menta y Jengibre</span><span>$180</span></div><div class="menu-item"><span>Licuados</span><span>$220</span></div></div>
+                <div><h4 class="category-header">Refrescos</h4><div class="menu-item font-bold"><span>Jarra Coca Cola 1.5L</span><span>$310</span></div></div>
             </div>
-            <div id="celiaco" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
-                <div><h4 class="category-header">Sin Gluten</h4><div class="menu-item"><span>Sándwich Pan Lactal</span><span>$360</span></div></div>
+            <div id="celiaco" class="tab-content hidden grid md:grid-cols-2 gap-x-12 text-green-800">
+                <div><h4 class="category-header">Salados</h4><div class="menu-item"><span>Sándwich Pan Lactal</span><span>$360</span></div></div>
                 <div><h4 class="category-header">Dulces</h4><div class="menu-item"><span>Pastafrola Membrillo</span><span>$250</span></div></div>
             </div>
         </div>
@@ -144,18 +150,18 @@
 
     <!-- CLUB KIDS & QR -->
     <section id="club-kids" class="py-20 px-6">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-[#fff1e6] p-10 rounded-[3rem] border-2 border-[#ffd8b8]">
+        <div class="max-w-5xl mx-auto club-card p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
             <div class="flex-grow">
                 <h2 class="text-4xl italic mb-6 text-[var(--naranja)]">Club Kids</h2>
-                <p class="text-lg italic">Acumulá <strong>caritas kids</strong> escaneando el QR y ganá entradas gratis.</p>
-                <div class="mt-6 space-y-2 text-[11px] font-bold uppercase opacity-50 italic">
-                    <p>• Friends Salón (Comercio 2099)</p>
+                <p class="text-lg italic mb-6">Acumulá <strong>caritas kids</strong> escaneando el QR y ganá entradas gratis.</p>
+                <div class="text-[11px] font-bold uppercase opacity-50 space-y-2 italic">
+                    <p>• Friends Salón de Fiestas (Comercio 2099)</p>
                     <p>• Salón Bv. Batlle y Ordóñez</p>
                     <p>• Recumple Sustentable</p>
                 </div>
             </div>
-            <div class="bg-white p-4 rounded-3xl shadow-xl border-2 border-orange-100">
-                <img src="qr.PNG" alt="QR" class="w-44 h-44 object-contain">
+            <div class="bg-white p-4 rounded-[2rem] shadow-2xl border-2 border-orange-50">
+                <img src="qr.PNG" alt="QR" class="w-48 h-48 object-contain">
             </div>
         </div>
     </section>
@@ -165,37 +171,50 @@
         <div class="max-w-7xl mx-auto">
             <h2 class="text-5xl italic text-center mb-16">Ubicaciones</h2>
 
-            <!-- CONTENEDOR DE RESULTADO DINÁMICO -->
+            <!-- Bloque dinámico para local cercano -->
             <div id="resultado-cercano">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <span class="text-xs font-black uppercase text-[var(--naranja)] tracking-widest italic">¡Encontramos tu local ideal!</span>
-                        <h3 id="nombre-cercano" class="text-4xl font-bold italic my-2">Cargando...</h3>
-                        <p id="distancia-cercano" class="text-sm opacity-70 italic"></p>
+                        <span class="text-xs font-black uppercase text-[var(--naranja)] tracking-[0.2em] italic">Tu sucursal ideal hoy:</span>
+                        <h3 id="nombre-cercano" class="text-4xl font-bold italic my-2">Calculando...</h3>
+                        <p id="distancia-cercano" class="text-sm opacity-60 italic">Estamos buscando la ruta más corta para vos.</p>
                     </div>
-                    <a id="link-cercano" href="#" target="_blank" class="btn-naranja px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest">Cómo llegar ahora</a>
+                    <a id="link-cercano" href="#" target="_blank" class="btn-naranja px-10 py-4 rounded-full font-bold uppercase text-xs">Cómo llegar</a>
                 </div>
             </div>
-            
+
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Parque Batlle -->
-                <div class="local-card p-8 bg-[var(--crema)] rounded-[3rem] border border-[var(--terracota)]/10">
-                    <h3 class="text-2xl font-bold mb-1 italic italic">Parque Batlle</h3>
+                <div class="local-card p-8 bg-[var(--crema)]">
+                    <h3 class="text-2xl font-bold mb-1 italic">Parque Batlle</h3>
                     <p class="text-[10px] opacity-60 mb-4">Palmar 2448 esq. Pedro Campbell</p>
-                    <p class="text-[10px] font-bold italic mb-4">L a V: 11-21 | S y D: 10-21</p>
+                    <p class="text-[10px] font-bold italic italic mb-4">L a V: 11-21 | S y D: 10-21</p>
                     <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.247!2d-56.162391!3d-34.901192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81076b1f9e2b%3A0xc345371c6d888f4b!2sPalmar%202448!5e0!3m2!1ses!2suy!4v1"></iframe>
                 </div>
-                <!-- Nuevo Centro -->
-                <div class="local-card p-8 bg-[var(--crema)] rounded-[3rem] border border-[var(--terracota)]/10">
-                    <h3 class="text-2xl font-bold mb-1 italic italic">Nuevo Centro</h3>
+                <div class="local-card p-8 bg-[var(--crema)]">
+                    <h3 class="text-2xl font-bold mb-1 italic text-[#B78476]">Nuevo Centro</h3>
                     <p class="text-[10px] opacity-60 mb-4">Luis A. de Herrera 3444</p>
-                    <p class="text-[10px] font-bold italic mb-4">L a V: 11-21 | S y D: 10-21</p>
+                    <p class="text-[10px] font-bold italic italic mb-4">L a V: 11-21 | S y D: 10-21</p>
                     <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.109!2d-56.173167!3d-34.871183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f806969!2sAv%20Luis%20Alberto%20de%20Herrera%203444!5e0!3m2!1ses!2suy!4v1"></iframe>
                 </div>
-                <!-- Shangrilá -->
-                <div class="local-card p-8 bg-[var(--crema)] rounded-[3rem] border border-[var(--terracota)]/10">
-                    <h3 class="text-2xl font-bold mb-1 italic italic">Shangrilá</h3>
+                <div class="local-card p-8 bg-[#fdf8f5] border-2 border-orange-50">
+                    <h3 class="text-2xl font-bold mb-1 italic text-[var(--naranja)]">Shangrilá</h3>
                     <p class="text-[10px] opacity-60 mb-4 italic">Venezuela y San Francisco</p>
-                    <p class="text-[10px] font-bold text-orange-900 mb-4">Mar a Dom: 15-21 (Lun Cerrado)</p>
-                    <!-- Mapa exacto de Shangrilá -->
-                    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3271.8599!2d-56.0028154!3d-34.8538599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2suy!4v1715654522
+                    <p class="text-[10px] font-bold text-orange-900 italic italic mb-4">Mar a Dom: 15-21 (Lun Cerrado)</p>
+                    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3271.8599!2d-56.0028154!3d-34.8538599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2suy!4v1715654522000!5m2!1ses-419!2suy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPROMISO -->
+    <section id="compromiso" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto compromiso-box">
+            <h2 class="text-4xl text-center mb-2 italic text-[#966b5d]">Compromiso Café Kids</h2>
+            <p class="text-center text-[10px] tracking-[0.2em] mb-10 text-[#966b5d] uppercase italic italic">Consentimiento informado y seguridad</p>
+            
+            <div class="h-[380px] overflow-y-auto pr-4 custom-scroll text-[14px] leading-relaxed text-gray-600 italic font-light">
+                <p class="mb-6">A) Uso Responsable: Acepto usar las instalaciones siguiendo las normas indicadas. La negativa al cumplimiento podría llevar a la revocación del derecho de uso sin devolución de pago.</p>
+                <p class="mb-6">B) Salud: Informaré de cualquier lesión o accidente de inmediato antes de abandonar el local.</p>
+                <div class="reglamento-brown">
+                    <h4 class="text-xs font-bold uppercase tracking-widest mb-6 border-b border-white/20 pb-2 italic">Reglamento del patio de juegos</h4>
+                    <ul class="space-y-4 italic text-[13px] font-med
