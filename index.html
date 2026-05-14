@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Kids | Coffee & Play Premium Experience</title>
+    
+    <!-- Tailwind CSS para estructura -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Elegancia y Modernidad -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- GSAP para Animaciones de Alto Nivel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --beige: #F5EDE3;
+            --crema: #FFF9F4;
+            --cafe: #8B5E4E;
+            --terracota: #B78476;
+            --verde-salvia: #A8B9A5;
+            --naranja-taza: #D97D0D;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--crema);
+            color: var(--cafe);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* TEXTURA PARA QUE NO SE VEA VACÍO */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Navbar Glassmorphism */
+        .nav-glass {
+            background: rgba(255, 249, 254, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 94, 78, 0.1);
+        }
+
+        /* Botón Premium Naranja */
+        .btn-naranja {
+            background-color: var(--naranja-taza);
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(217, 125, 13, 0.2);
+        }
+        .btn-naranja:hover {
+            transform: translateY(-3px) scale(1.02);
+            background-color: var(--cafe);
+            box-shadow: 0 15px 30px rgba(139, 94, 78, 0.2);
+        }
+
+        /* Hero Styling */
+        .hero-bg {
+            background: radial-gradient(circle at top right, #F5EDE3 0%, #FFF9F4 100%);
+        }
+
+        /* Card de Locales */
+        .local-card {
+            background: white;
+            border: 1px solid rgba(139, 94, 78, 0.05);
+            transition: all 0.6s ease;
+        }
+        .local-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px rgba(139, 94, 78, 0.1);
+        }
+
+        /* Scrollbar Personalizada */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--terracota); border-radius: 10px; }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: var(--beige);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animación de entrada para imágenes */
+        .reveal-img {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .reveal-img.active {
+            clip-path: inset(0 0 0 0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de Carga -->
+    <div id="loader">
+        <img src="logo-cafekids.png" alt="Cargando..." class="w-40 animate-pulse">
+    </div>
+
+    <!-- Navegación -->
+    <nav class="nav-glass fixed w-full z-[60] px-6 md:px-12 py-4 flex justify-between items-center">
+        <img src="logo-cafekids.png" alt="Café Kids" class="h-10 md:h-14">
+        <div class="hidden md:flex gap-10 text-[10px] font-bold uppercase tracking-[0.2em]">
+            <a href="#experiencia" class="hover:text-[var(--terracota)] transition">Experiencia</a>
+            <a href="#locales" class="hover:text-[var(--terracota)] transition">Nuestros Locales</a>
+            <a href="#seguridad" class="hover:text-[var(--terracota)] transition text-[var(--terracota)]">Seguridad</a>
+        </div>
+        <a href="#locales" class="btn-naranja px-6 py-3 rounded-full text-[10px] font-extrabold uppercase tracking-widest">
+            Encontrá tu local
+        </a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero-bg min-h-screen flex items-center justify-center relative px-6 overflow-hidden">
+        <!-- Elementos decorativos para "rellenar" -->
+        <div class="absolute top-1/4 -left-20 w-64 h-64 bg-[var(--terracota)] blur-[120px] opacity-20"></div>
+        <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-[var(--verde-salvia)] blur-[150px] opacity-20"></div>
+
+        <div class="max-w-5xl text-center z-10 pt-20">
+            <span class="inline-block py-1 px-4 bg-[var(--cafe)] text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-full mb-8">
+                Diseñado para la Familia Real • Uruguay
+            </span>
+            <h1 class="text-6xl md:text-[7rem] leading-[0.9] font-bold mb-8 tracking-tighter">
+                Tu café, <br>
+                <span class="italic font-light text-[var(--terracota)]">su patio de juegos.</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-[var(--cafe)]/70 max-w-2xl mx-auto mb-12 font-light">
+                Un refugio premium con 10 años de trayectoria, donde el café de especialidad y la infancia lúdica se encuentran.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#locales" class="btn-naranja px-10 py-5 rounded-full text-xs font-bold uppercase">Descubrir espacios</a>
+                <p class="text-[10px] uppercase font-bold tracking-widest text-[var(--verde-salvia)]">
+                    🎁 Promo Enero & Febrero Activa
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: ENCONTRÁ TU LOCAL -->
+    <section id="locales" class="py-32 px-6 bg-white relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-md">
+                    <h2 class="text-5xl italic mb-4">Nuestros Locales</h2>
+                    <p class="text-gray-500 font-light">Elegí el espacio que mejor se adapte a tu momento: una tarde de café o una celebración inolvidable.</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] font-bold uppercase text-[var(--terracota)] border-b border-[var(--terracota)] pb-1">Montevideo, Uruguay</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Local 1 -->
+                <div class="local-card p-10 rounded-[3rem] flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-12 h-12 bg-[var(--beige)] rounded-2xl flex items-center justify-center mb-8">☕</div>
+                        <h3 class="text-3xl font-bold mb-4 italic">Café Kids Central</h3>
+                        <p class="text-gray-600 mb-8 font-light leading-relaxed">
+                            Nuestro espacio diario. Cafetería de especialidad con granos de Honduras y un área lúdica de "Juego de Roles" diseñada para la primera infancia.
+                        </p>
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" class="flex items-center gap-2 font-bold text-[var(--naranja-taza)] hover:gap-4 transition-all">
+                        CÓMO LLEGAR <span class="text-xl">→</span>
+                    </a>
+                </div>
+
+                <!-- Local 2 -->
+                <div class="local-card p-10 rounded-[3rem] flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-12 h-12 bg-[var(--beige)] rounded-2xl flex items-center justify-center mb-8">🎈</div>
+                        <h3 class="text-3xl font-bold mb-4 italic">Friends Salón</h3>
+                        <p class="text-gray-600 mb-8 font-light leading-relaxed">
+                            Ubicado en Comercio 2099. El lugar perfecto para eventos privados, cumpleaños boutique y experiencias familiares con más de una década de experiencia.
+                        </p>
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" class="flex items-center gap-2 font-bold text-[var(--naranja-taza)] hover:gap-4 transition-all">
+                        VER UBICACIÓN <span class="text-xl">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: SEGURIDAD Y CONSENTIMIENTO -->
+    <section id="seguridad" class="py-32 px-6 bg-[var(--beige)] relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="bg-white p-8 md:p-20 rounded-[4rem] shadow-2xl shadow-stone-200">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl italic mb-4">Compromiso Café Kids</h2>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--terracota)]">Consentimiento Informado y Seguridad</p>
+                </div>
+
+                <div class="custom-scroll h-[450px] overflow-y-auto pr-6 text-sm text-gray-600 leading-relaxed font-light">
+                    <h4 class="font-bold text-[var(--cafe)] uppercase mb-4 tracking-tighter">Acuerdo de Usuario y Asunción de Riesgo</h4>
+                    <p class="mb-4">El uso del patio de juegos y cualquier actividad dentro de nuestras instalaciones tiene riesgos. Estos podrían ocasionar lesiones físicas, emocionales, o daños a terceros.</p>
+                    
+                    <p class="mb-4 italic bg-[var(--crema)] p-4 rounded-2xl border-l-4 border-[var(--terracota)]">
+                        Al entrar a nuestros espacios, acepto y comprendo las condiciones en nombre propio y de los menores a mi cargo por decisión de sus padres y/o representantes legales.
+                    </p>
+
+                    <div class="space-y-6">
+                        <p><strong>A) Uso Responsable:</strong> Acepto usar las instalaciones siguiendo las normas indicadas. La negativa al cumplimiento podría llevar a la revocación del derecho de uso sin devolución de pago.</p>
+                        <p><strong>B) Salud:</strong> Informaré de cualquier lesión o accidente de inmediato antes de abandonar el local.</p>
+                        <p><strong>C) Emergencia:</strong> Autorizo al personal a obtener tratamiento médico de emergencia en mi nombre si fuera necesario, asumiendo los cargos correspondientes.</p>
+                        <p><strong>D) Imagen:</strong> Autorizo la toma de fotos y videos para uso en redes sociales y web institucional, entendiendo que el propietario es titular de dichas imágenes.</p>
+                    </div>
+
+                    <div class="mt-12 p-8 bg-[var(--cafe)] text-[var(--crema)] rounded-[2rem]">
+                        <h4 class="font-bold text-xs uppercase tracking-widest mb-6 border-b border-white/20 pb-2">Reglamento del Patio de Juegos</h4>
+                        <ul class="space-y-4 text-xs opacity-90 italic">
+                            <li>• Ingreso <strong>sin calzado</strong> obligatorio (calcetines).</li>
+                            <li>• No ingresar con comida, bebida o juguetes externos.</li>
+                            <li>• Solo un adulto por niño en el área de juegos.</li>
+                            <li>• Altura máxima para pelotero: 1,50 mts.</li>
+                            <li>• Prohibido cualquier tipo de violencia o gritos.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-[9px] uppercase tracking-widest text-gray-400">Al ingresar a nuestro local, usted acepta estos términos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-20 bg-white text-center border-t border-gray-100">
+        <img src="logo-cafekids.png" alt="Logo" class="h-16 mx-auto mb-8 opacity-50 grayscale hover:grayscale-0 transition duration-700">
+        <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-[var(--cafe)] mb-4">Elevating Family Moments</p>
+        <div class="flex justify-center gap-8 text-[9px] font-black uppercase tracking-widest opacity-40">
+            <a href="https://instagram.com/cafekids.uy" target="_blank" class="hover:text-[var(--naranja-taza)] transition">Instagram</a>
+            <a href="#" class="hover:text-[var(--naranja-taza)] transition">WhatsApp</a>
+            <a href="#" class="hover:text-[var(--naranja-taza)] transition">Facebook</a>
+        </div>
+        <div class="mt-16 text-[8px] opacity-30 uppercase tracking-widest">
+            © 2024 Café Kids Uruguay • Friends Salón • San Juan Intibucá Coffee Project.
+        </div>
+    </footer>
+
+    <script>
+        // Registrar Plugins de Animación
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Quitar Loader cuando cargue todo
+        window.addEventListener('load', () => {
+            gsap.to("#loader", {
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.inOut",
+                onComplete: () => document.getElementById("loader").style.display = "none"
+            });
+
+            // Iniciar animaciones de Hero
+            const tl = gsap.timeline();
+            tl.from("h1", { y: 100, opacity: 0, duration: 1.2, ease: "expo.out", delay: 0.5 })
+              .from("p", { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8")
+              .from(".btn-naranja", { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.7)" }, "-=0.5");
+        });
+
+        // 2. Animación de las Cards de Locales al hacer Scroll
+        gsap.from(".local-card", {
+            scrollTrigger: {
+                trigger: "#locales",
+                start: "top 80%",
+            },
+            y: 100,
+            opacity: 0,
+            stagger: 0.3,
+            duration: 1.5,
+            ease: "power4.out"
+        });
+
+        // 3. Efecto Parallax Sutil en el fondo del Hero
+        gsap.to(".hero-bg", {
+            scrollTrigger: {
+                trigger: "#inicio",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            },
+            y: 100,
+            ease: "none"
+        });
+
+        // 4. Smooth Scroll para los links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
