@@ -3,41 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Kids | Somos Familia</title>
+    <title>Café Kids | Coffee & Play Uruguay 2026</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --beige: #F5EDE3; --crema: #FFF9F4; --cafe: #8B5E4E; --terracota: #B78476; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--crema); color: var(--cafe); }
-        body::before { content: ""; position: fixed; inset: 0; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); opacity: 0.4; pointer-events: none; z-index: 50; }
-        .nav-glass { background: rgba(255, 249, 254, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(139, 94, 78, 0.1); }
+        :root {
+            --beige: #F5EDE3; --crema: #FFF9F4; --cafe: #8B5E4E;
+            --terracota: #B78476; --naranja: #D97D0D; --verde: #A8B9A5;
+        }
+
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--crema); color: var(--cafe); margin: 0; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.4; pointer-events: none; z-index: 50;
+        }
+
+        .nav-glass { background: rgba(255, 249, 254, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(139, 94, 78, 0.1); }
+        .btn-naranja { background-color: var(--naranja); color: white; transition: 0.3s; box-shadow: 0 10px 20px rgba(217, 125, 13, 0.2); }
+        .btn-naranja:hover { transform: scale(1.05); background-color: var(--cafe); }
+
+        .tab-btn.active { background-color: var(--terracota); color: white; border-color: var(--terracota); }
+        .menu-item { border-bottom: 1px solid rgba(139, 94, 78, 0.1); padding: 10px 0; display: flex; justify-content: space-between; font-size: 0.9rem; }
+        .category-header { color: var(--terracota); font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; border-bottom: 2px solid var(--beige); margin: 2rem 0 1rem 0; }
+
+        .compromiso-box { background: white; border-radius: 40px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        .reglamento-brown { background: #966b5d; color: #fdf2f0; padding: 30px; border-radius: 30px; }
+        .club-card { background: #fff1e6; border: 2px solid #ffd8b8; border-radius: 40px; }
+        
+        .map-frame { width: 100%; height: 200px; border-radius: 25px; border: none; margin-top: 15px; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 10px; }
+
+        .closest-highlight { ring: 4px solid var(--naranja); transform: scale(1.02); transition: 0.5s; }
+
+        #loader { position: fixed; inset: 0; z-index: 9999; background: var(--beige); display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
+
+    <div id="loader"><img src="logo-cafekids.png" alt="Café Kids" class="w-48 animate-pulse"></div>
+
     <nav class="nav-glass fixed w-full z-[60] px-6 md:px-12 py-3 flex justify-between items-center">
-        <a href="index.html"><img src="logo-cafekids.png" alt="Logo" class="h-10 md:h-12"></a>
+        <img src="logo-cafekids.png" alt="Logo" class="h-10 md:h-12">
         <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest">
-            <a href="index.html" class="text-[var(--terracota)]">Nosotros</a>
-            <a href="carta.html">Carta 2026</a>
-            <a href="locales.html">Sucursales</a>
-            <a href="club.html">Club Kids</a>
-            <a href="seguridad.html">Seguridad</a>
+            <a href="#inicio">Inicio</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#menu-completo">Carta 2026</a>
+            <a href="#locales">Locales</a>
         </div>
+        <button onclick="findNearest()" class="btn-naranja px-6 py-2 rounded-full text-[10px] font-bold uppercase">Local más cercano</button>
     </nav>
 
-    <section class="min-h-screen flex items-center justify-center pt-20 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
-                <span class="bg-[var(--cafe)] text-white px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">Est. 2012 • Uruguay</span>
-                <h1 class="text-6xl md:text-8xl font-bold leading-none tracking-tighter">Somos <br><span class="italic font-light text-[var(--terracota)] text-7xl md:text-9xl">Familia.</span></h1>
-                <p class="text-gray-600 font-light leading-relaxed italic">Somos una familia emprendedora hace más de 10 años. Lo que empezó con <strong>Friends Fiestas</strong> hoy es Café Kids, un sueño que como padres deseábamos vivir.</p>
-                <p class="text-gray-600 font-light leading-relaxed">Nuestras hijas de <strong>7 y 9 años</strong> son parte activa, ayudándonos a crear experiencias reales para otras familias.</p>
-            </div>
-            <div class="rounded-[4rem] overflow-hidden shadow-2xl h-[500px]">
-                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
+    <!-- HERO -->
+    <section id="inicio" class="min-h-screen flex items-center justify-center text-center px-6 pt-20">
+        <div class="max-w-4xl">
+            <span class="bg-[var(--cafe)] text-white px-4 py-1 rounded-full text-[9px] uppercase font-black tracking-widest mb-6 inline-block">Uruguay • Est. 2012</span>
+            <h1 class="text-6xl md:text-[7.5rem] font-bold leading-[0.95] mb-6 tracking-tighter">
+                Tu café, <br><span class="italic font-light text-[var(--terracota)]">su lugar feliz.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-500 italic max-w-2xl mx-auto">Experiencias familiares premium. Jugar es un derecho y lo celebramos cada día.</p>
+        </div>
+    </section>
+
+    <!-- SOMOS FAMILIA -->
+    <section id="nosotros" class="py-24 px-6 bg-white rounded-[4rem]">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <h2 class="text-5xl italic leading-tight">Somos Familia</h2>
+                    <p class="text-gray-600 font-light leading-relaxed italic">
+                        Emprendedores desde hace más de 10 años en el rubro eventos. Friends Fiestas y Friends Kids nos dieron la experiencia para crear Café Kids: el sueño que como padres deseábamos vivir cuando nuestras hijas eran pequeñas. 
+                    </p>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Hoy nuestras hijas de <strong>7 y 9 años</strong> son parte del proyecto y nos ayudan a crear experiencias reales para las familias. Un lugar ideal para trabajar o disfrutar un café mientras ellos juegan contenidos.
+                    </p>
+                    <div class="p-6 bg-[var(--beige)] rounded-[2.5rem] border-l-4 border-[var(--terracota)]">
+                        <h4 class="font-bold text-sm mb-2 uppercase tracking-widest italic">Esquina Parque Batlle</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed italic italic">3 Niveles: Plaza de juegos lúdica, espacio relax para adultos y Roofkids al aire libre.</p>
+                    </div>
+                </div>
+                <div class="rounded-[3rem] overflow-hidden shadow-2xl h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- MENÚ COMPLETO 2026 -->
+    <section id="menu-completo" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl italic mb-4">Nuestra Carta 2026</h2>
+                <div class="flex flex-wrap justify-center gap-2 mt-8">
+                    <button onclick="showTab('salados')" class="tab-btn active px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Salados</button>
+                    <button onclick="showTab('kids')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Kids</button>
+                    <button onclick="showTab('cafe')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Café</button>
+                    <button onclick="showTab('bebidas')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase transition">Bebidas</button>
+                    <button onclick="showTab('celiaco')" class="tab-btn px-6 py-2 rounded-full border text-[10px] font-bold uppercase text-green-700">Sin Gluten</button>
+                </div>
+            </div>
+
+            <div id="salados" class="tab-content grid md:grid-cols-2 gap-x-12">
+                <div>
+                    <h4 class="category-header">Favoritos Salados</h4>
+                    <div class="menu-item"><span>Sándwich Caliente JyQ (Pan miga)</span><span>$360</span></div>
+                    <div class="menu-item"><span>Sándwich Frío JyQ / Bondiola</span><span>$350</span></div>
+                    <div class="menu-item"><span>Pan de Nuez Relleno</span><span>$310</span></div>
+                    <div class="menu-item"><span>Croissant Hojaldre Relleno</span><span>$260</span></div>
+                    <div class="menu-item"><span>Chipá de Queso</span><span>$190</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Tostones & Refuercitos</h4>
+                    <div class="menu-item font-bold"><span>Refuercitos Pan Casero (Varios)</span><span>$310</span></div>
+                    <p class="text-[9px] opacity-50 italic mb-2 italic">Lomito, Olímpico, Avocado, Cebolla Caramelizada.</p>
+                    <div class="menu-item"><span>Tostón Masa Madre c/ Palta y Huevo</span><span>$310</span></div>
+                    <div class="menu-item"><span>Scon de Queso Relleno</span><span>$220</span></div>
+                </div>
+            </div>
+
+            <div id="kids" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
+                <div>
+                    <h4 class="category-header">Para los Pequeños</h4>
+                    <div class="menu-item"><span>Hamburguesa Casera Kids + Papas</span><span>$320</span></div>
+                    <div class="menu-item"><span>Mila Fingers (Carne) + Papas</span><span>$320</span></div>
+                    <div class="menu-item"><span>Mini Pizzeta Mickey (x2)</span><span>$140</span></div>
+                    <div class="menu-item"><span>Tequeños (4 unidades)</span><span>$290</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Platos de Cocina</h4>
+                    <div class="menu-item font-bold"><span>Al Pan Casero Completo</span><span>$520</span></div>
+                    <div class="menu-item"><span>Wrap Masa Casera Relleno</span><span>$390</span></div>
+                    <div class="menu-item"><span>Pizza Mozzarella (30cm)</span><span>$390</span></div>
+                </div>
+            </div>
+
+            <div id="cafe" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
+                <div>
+                    <h4 class="category-header">Café Honduras</h4>
+                    <div class="menu-item"><span>Espresso (Catuai Rojo)</span><span>$130</span></div>
+                    <div class="menu-item font-bold"><span>Flat White / Latte</span><span>$200</span></div>
+                    <div class="menu-item"><span>Capuchino</span><span>$200</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Especiales</h4>
+                    <div class="menu-item"><span>Submarino (Barrita Aguila)</span><span>$210</span></div>
+                    <div class="menu-item"><span>Adicional Leche Vegetal</span><span>$50</span></div>
+                </div>
+            </div>
+
+            <div id="bebidas" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
+                <div>
+                    <h4 class="category-header">Frescos</h4>
+                    <div class="menu-item"><span>Limonada Menta y Jengibre 1/2 L</span><span>$180</span></div>
+                    <div class="menu-item font-bold"><span>Licuados de Fruta</span><span>$220</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Refrescos</h4>
+                    <div class="menu-item"><span>Jarra Coca Cola 1.5 L</span><span>$310</span></div>
+                    <div class="menu-item"><span>Agua Vitale c/ gas 1/2 L</span><span>$140</span></div>
+                </div>
+            </div>
+
+            <div id="celiaco" class="tab-content hidden grid md:grid-cols-2 gap-x-12">
+                <div>
+                    <h4 class="category-header text-green-600">Salados Sin Gluten</h4>
+                    <div class="menu-item"><span>Sándwich Caliente Pan Lactal</span><span>$360</span></div>
+                    <div class="menu-item"><span>Chipá Relleno</span><span>$240</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header text-green-600">Dulces Sin Gluten</h4>
+                    <div class="menu-item"><span>Alfajor s/ azúcar</span><span>$150</span></div>
+                    <div class="menu-item"><span>Pastafrola Membrillo</span><span>$250</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLUB DE BENEFICIOS -->
+    <section id="club-beneficios" class="py-20 px-6">
+        <div class="max-w-5xl mx-auto club-card p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-grow">
+                <h2 class="text-4xl italic mb-6 text-[var(--naranja)]">Club Kids</h2>
+                <p class="text-lg mb-8 italic">Escaneá el QR, acumulá <strong>caritas kids</strong> y ganá beneficios en todos nuestros emprendimientos.</p>
+                <div class="space-y-2 text-[11px] font-bold uppercase opacity-50 italic">
+                    <p>• Friends Salón (Comercio 2099)</p>
+                    <p>• Salón de Fiestas (Bv. Batlle y Ordóñez)</p>
+                    <p>• Recumple Sustentable</p>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-3xl shadow-2xl border-2 border-[var(--naranja)]/10">
+                <img src="qr.PNG" alt="QR Beneficios" class="w-48 h-48 rounded-xl object-contain">
+                <p class="mt-4 text-[10px] font-black uppercase text-center text-[var(--naranja)]">Escaneá y Unite</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCALES CON GEO-LOGIC -->
+    <section id="locales" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl italic text-center mb-4">Nuestras Sucursales</h2>
+            <p class="text-center text-xs opacity-50 uppercase tracking-widest mb-16 italic italic">Encontrá tu refugio Café Kids</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Parque Batlle -->
+                <div id="sucursal-batlle" class="local-card p-8 bg-[var(--crema)] rounded-[3rem] border border-[var(--terracota)]/10">
+                    <h3 class="text-2xl font-bold mb-2 italic">Parque Batlle</h3>
+                    <p class="text-[10px] opacity-60 mb-4">Palmar 2448 esq. Pedro Campbell</p>
+                    <p class="text-[10px] font-bold bg-white/60 p-3 rounded-xl mb-4 italic italic">Lun a Vie: 11-21 | S y D: 10-21</p>
+                    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.247!2d-56.162391!3d-34.901192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81076b1f9e2b%3A0xc345371c6d888f4b!2sPalmar%202448%2C%20Montevideo!5e0!3m2!1ses!2suy!4v1700000000000"></iframe>
+                </div>
+                <!-- Nuevo Centro -->
+                <div id="sucursal-nuevo" class="local-card p-8 bg-[var(--crema)] rounded-[3rem] border border-[var(--terracota)]/10">
+                    <h3 class="text-2xl font-bold mb-2 italic">Nuevo Centro</h3>
+                    <p class="text-[10px] opacity-60 mb-4 text-[#B78476]">Luis A. de Herrera 3444</p>
+                    <p class="text-[10px] font-bold bg-white/60 p-3 rounded-xl mb-4 italic italic">Lun a Vie: 11-21 | S y D: 10-21</p>
+                    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.109!2d-56.173167!3d-34.871183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f806969!2sAv%20Luis%20Alberto%20de%20Herrera%203444!5e0!3m2!1ses!2suy!4v1700000000000"></iframe>
+                </div>
+                <!-- Shangrilá -->
+                <div id="sucursal-shangrila" class="local-card p-8 bg-[var(--crema)] rounded-[3rem] border border-[var(--terracota)]/10">
+                    <h3 class="text-2xl font-bold mb-2 italic">Shangrilá</h3>
+                    <p class="text-[10px] opacity-60 mb-4 italic italic">Venezuela y San Francisco</p>
+                    <p class="text-[10px] font-bold bg-orange-50 p-3 rounded-xl mb-4 text-orange-900 italic italic">Mar a Dom: 15-21 (Lun Cerrado)</p>
+                    <!-- Mapa exacto de Café Kids 3 Shangrilá -->
+                    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3271.8599!2d-56.0028154!3d-34.8538599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2suy!4v1715654522000!5m2!1ses-419!2suy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPROMISO -->
+    <section id="compromiso" class="py-24 px-6 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]">
+        <div class="max-w-4xl mx-auto compromiso-box">
+            <h2 class="text-4xl text-center mb-2 italic text-[#966b5d]">Compromiso Café Kids</h2>
+            <p class="text-center text-[10px] tracking-[0.2em] mb-10 text-[#966b5d] uppercase italic italic">Consentimiento informado y seguridad</p>
+            
+            <div class="h-[380px] overflow-y-auto pr-4 custom-scroll text-[14px] leading-relaxed text-gray-600 italic font-light">
+                <p class="mb-6">A) Uso Responsable: Acepto usar las instalaciones siguiendo las normas indicadas. La negativa al cumplimiento podría llevar a la revocación del derecho de uso sin devolución de pago.</p>
+                <p class="mb-6">B) Salud: Informaré de cualquier lesión o accidente de inmediato antes de abandonar el local.</p>
+                <p class="mb-6">C) Emergencia: Autorizo al personal a obtener tratamiento médico de emergencia en mi nombre si fuera necesario, asumiendo los cargos correspondientes.</p>
+                <p class="mb-10">D) Imagen: Autorizo la toma de fotos y videos para uso en redes sociales y web institucional, entendiendo que el propietario es titular de dichas imágenes.</p>
+
+                <div class="reglamento-brown shadow-lg">
+                    <h4 class="text-xs font-bold uppercase tracking-widest mb-6 border-b border-white/20 pb-2 italic italic">Reglamento del patio de juegos</h4>
+                    <ul class="space-y-4 italic text-[13px] font-medium leading-relaxed">
+                        <li>• Ingreso sin calzado obligatorio (calcetines).</li>
+                        <li>• No ingresar con comida, bebida o juguetes externos.</li>
+                        <li>• Se ingresa únicamente con las manos limpias.</li>
+                        <li>• Ingresa un sólo adulto por niño al patio de juegos.</li>
+                        <li>• Siempre tiene que haber un adulto responsable al cuidado.</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center mt-12 text-[9px] text-gray-400 uppercase tracking-widest">Este es un emprendimiento 100% uruguayo y familiar.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[var(--cafe)] text-[var(--beige)] py-20 px-8 text-center">
+        <img src="logo-cafekids.png" alt="Logo" class="h-16 mx-auto mb-8 grayscale brightness-[10] opacity-80">
+        <div class="flex justify-center gap-8 mb-8 text-[10px] font-black uppercase tracking-widest italic italic">
+            <a href="https://instagram.com/cafekids.uy" target="_blank" class="hover:text-[var(--terracota)] transition">Instagram</a>
+            <a href="#" class="hover:text-[var(--terracota)] transition">WhatsApp</a>
+        </div>
+        <p class="text-[8px] opacity-30 uppercase tracking-[0.5em]">© Café Kids Uruguay 2026</p>
+    </footer>
+
+    <script>
+        // 1. Carga y Animaciones
+        window.onload = () => {
+            gsap.to("#loader", { opacity: 0, duration: 0.8, onComplete: () => {
+                document.getElementById("loader").style.display="none";
+            }});
+            gsap.from("h1", { y: 60, opacity: 0, duration: 1.2, ease: "power3.out" });
+        };
+
+        // 2. Tabs Menú
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+
+        // 3. GEOLOCALIZACIÓN: Encontrar local más cercano
+        function findNearest() {
+            const locations = [
+                { id: 'sucursal-batlle', lat: -34.901192, lng: -56.162391, name: 'Parque Batlle' },
+                { id: 'sucursal-nuevo', lat: -34.871183, lng: -56.173167, name: 'Nuevo Centro' },
+                { id: 'sucursal-shangrila', lat: -34.8538599, lng: -56.0028154, name: 'Shangrilá' }
+            ];
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+
+                    let closest = null;
+                    let minDistance = Infinity;
+
+                    locations.forEach(loc => {
+                        const dist = Math.sqrt(Math.pow(loc.lat - userLat, 2) + Math.pow(loc.lng - userLng, 2));
+                        if (dist < minDistance) {
+                            minDistance = dist;
+                            closest = loc;
+                        }
+                    });
+
+                    // Acción: Scroll y Resaltar
+                    const element = document.getElementById(closest.id);
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    document.querySelectorAll('.local-card').forEach(c => c.classList.remove('closest-highlight'));
+                    element.classList.add('closest-highlight');
+                    
+                    alert(`El local más cercano a ti es: Café Kids ${closest.name}`);
+                }, () => {
+                    alert("No pudimos acceder a tu ubicación. Mostrando todos los locales.");
+                    document.getElementById('locales').scrollIntoView({ behavior: 'smooth' });
+                });
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+            }
+        }
+
+        // 4. Smooth Scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>
