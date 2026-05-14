@@ -3,253 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Kids | Coffee & Play Premium Experience</title>
+    <title>Café Kids | El Club de la Familia</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- GSAP Animaciones -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --beige: #F5EDE3;
-            --crema: #FFF9F4;
-            --cafe: #8B5E4E;
-            --terracota: #B78476;
-            --naranja-taza: #D97D0D;
+            --beige: #F5EDE3; --crema: #FFF9F4; --cafe: #8B5E4E;
+            --terracota: #B78476; --naranja: #D97D0D; --verde: #A8B9A5;
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--crema);
-            color: var(--cafe);
-            overflow-x: hidden;
-        }
-
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--crema); color: var(--cafe); margin: 0; }
         h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
 
-        /* Textura de papel para profundidad visual */
+        /* Textura */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: 50;
+            opacity: 0.4; pointer-events: none; z-index: 50;
         }
 
-        .nav-glass {
-            background: rgba(255, 249, 254, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(139, 94, 78, 0.1);
-        }
+        .nav-glass { background: rgba(255, 249, 254, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(139, 94, 78, 0.1); }
+        .btn-naranja { background-color: var(--naranja); color: white; transition: 0.3s; box-shadow: 0 10px 20px rgba(217, 125, 13, 0.2); }
+        
+        /* Menu Tabs */
+        .tab-btn.active { background-color: var(--terracota); color: white; border-color: var(--terracota); }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .menu-item { border-bottom: 1px solid rgba(139, 94, 78, 0.1); padding: 8px 0; display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .category-header { color: var(--terracota); font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1.5px; border-bottom: 2px solid var(--beige); margin: 1.5rem 0 1rem 0; }
 
-        .btn-naranja {
-            background-color: var(--naranja-taza);
-            color: white;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(217, 125, 13, 0.2);
-        }
+        /* Compromiso (Imagen) */
+        .compromiso-box { background: white; border-radius: 40px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        .reglamento-brown { background: #966b5d; color: #fdf2f0; padding: 30px; border-radius: 30px; }
+        
+        /* QR & Beneficios */
+        .club-card { background: #fff1e6; border: 2px solid #ffd8b8; border-radius: 30px; }
+        
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
-        .local-card {
-            background: white;
-            border-radius: 3rem;
-            border: 1px solid rgba(139, 94, 78, 0.05);
-            transition: all 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .local-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(139, 94, 78, 0.1);
-        }
-
-        .map-container {
-            width: 100%;
-            height: 200px;
-            filter: grayscale(0.3) contrast(0.9);
-            border-radius: 2rem;
-            margin-top: 1.5rem;
-            overflow: hidden;
-        }
-
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: var(--terracota); border-radius: 10px; }
-
-        #loader {
-            position: fixed; inset: 0; z-index: 100;
-            background: var(--beige); display: flex;
-            align-items: center; justify-content: center;
-        }
+        #loader { position: fixed; inset: 0; z-index: 9999; background: var(--beige); display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-    <!-- Pantalla de Carga -->
-    <div id="loader">
-        <img src="logo-cafekids.png" alt="Cargando..." class="w-40 animate-pulse">
-    </div>
+    <div id="loader"><img src="logo-cafekids.png" alt="Café Kids" class="w-48 animate-pulse"></div>
 
-    <!-- Navegación -->
-    <nav class="nav-glass fixed w-full z-[60] px-6 md:px-12 py-4 flex justify-between items-center">
-        <img src="logo-cafekids.png" alt="Café Kids" class="h-10 md:h-14">
-        <div class="hidden md:flex gap-10 text-[10px] font-bold uppercase tracking-[0.2em]">
-            <a href="#inicio" class="hover:text-[var(--terracota)] transition">Inicio</a>
+    <nav class="nav-glass fixed w-full z-[60] px-6 py-3 flex justify-between items-center">
+        <img src="logo-cafekids.png" alt="Logo" class="h-10 md:h-12">
+        <div class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
+            <a href="#menu-seccion" class="hover:text-[var(--terracota)] transition">La Carta</a>
+            <a href="#club-beneficios" class="hover:text-[var(--terracota)] transition">Club Kids</a>
             <a href="#locales" class="hover:text-[var(--terracota)] transition">Sucursales</a>
-            <a href="#seguridad" class="hover:text-[var(--terracota)] transition">Seguridad</a>
+            <a href="#compromiso" class="hover:text-[var(--terracota)] transition">Compromiso</a>
         </div>
-        <a href="#locales" class="btn-naranja px-6 py-3 rounded-full text-[10px] font-extrabold uppercase tracking-widest">
-            Encontrá tu local
-        </a>
+        <a href="#locales" class="btn-naranja px-5 py-2 rounded-full text-[10px] font-bold uppercase">Ubicaciones</a>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section id="inicio" class="min-h-screen flex items-center justify-center relative px-6 overflow-hidden pt-20">
-        <div class="max-w-5xl text-center z-10">
-            <span class="inline-block py-1 px-4 bg-[var(--cafe)] text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-full mb-8">
-                3 Sucursales • Uruguay
-            </span>
-            <h1 class="text-6xl md:text-[7rem] leading-[0.9] font-bold mb-8 tracking-tighter">
-                Tu momento, <br>
-                <span class="italic font-light text-[var(--terracota)]">su espacio lúdico.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-[var(--cafe)]/70 max-w-2xl mx-auto mb-10 font-light italic">
-                Café de especialidad en un entorno diseñado para la primera infancia.
-            </p>
-            <a href="#locales" class="btn-naranja px-10 py-5 rounded-full text-xs font-bold uppercase inline-block">Ver Sucursales</a>
+    <!-- HERO -->
+    <section class="min-h-[80vh] flex items-center justify-center text-center px-6 pt-24">
+        <div class="max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-bold mb-4">Café <span class="italic font-light text-[var(--terracota)]">& Juegos.</span></h1>
+            <p class="text-lg text-gray-500 italic">Donde la magia de la infancia y el aroma del café se encuentran.</p>
         </div>
     </section>
 
-    <!-- SECCIÓN: SUCURSALES -->
-    <section id="locales" class="py-24 px-6 bg-white relative z-10">
+    <!-- MENÚ ABSOLUTAMENTE COMPLETO -->
+    <section id="menu-seccion" class="py-24 px-6 bg-white rounded-[4rem]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl italic">Nuestra Carta 2025</h2>
+                <p class="text-[10px] uppercase tracking-[0.3em] opacity-40">De la finca a tu mesa</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button onclick="showTab('salados')" class="tab-btn active px-5 py-2 rounded-full border text-[10px] font-bold">SALADOS</button>
+                <button onclick="showTab('kids-platos')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold">KIDS & PLATOS</button>
+                <button onclick="showTab('cafeteria')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold">CAFETERÍA</button>
+                <button onclick="showTab('bebidas')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold">BEBIDAS</button>
+                <button onclick="showTab('sin-gluten')" class="tab-btn px-5 py-2 rounded-full border text-[10px] font-bold text-green-700">SIN GLUTEN</button>
+            </div>
+
+            <!-- TAB: SALADOS -->
+            <div id="salados" class="tab-content grid md:grid-cols-2 gap-x-16">
+                <div>
+                    <h4 class="category-header">Nuestros Salados</h4>
+                    <div class="menu-item"><span>Sándwich caliente JyQ (Pan miga)</span><span>$360</span></div>
+                    <div class="menu-item"><span>Sándwich frío JyQ / Bondiola / Capresse</span><span>$350</span></div>
+                    <div class="menu-item"><span>Pan de nuez relleno</span><span>$310</span></div>
+                    <div class="menu-item"><span>Croissant Hojaldre relleno</span><span>$260</span></div>
+                    <div class="menu-item"><span>Croissant Simple</span><span>$130</span></div>
+                    <div class="menu-item"><span>Medialuna rellena JyQ</span><span>$260</span></div>
+                    <div class="menu-item"><span>Scon de queso (mermelada y manteca)</span><span>$140</span></div>
+                    <div class="menu-item"><span>Scon de queso relleno</span><span>$220</span></div>
+                    <div class="menu-item"><span>Chipá de queso</span><span>$190</span></div>
+                    <div class="menu-item"><span>Chipá Relleno</span><span>$240</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Tostones & Refuercitos</h4>
+                    <div class="menu-item"><span>Tostón Masa Madre c/ Palta y Huevo</span><span>$310</span></div>
+                    <div class="menu-item"><span>Tostón Masa Madre Hummus y Oliva</span><span>$310</span></div>
+                    <div class="menu-item font-bold"><span>Refuercitos Pan Casero (Varios)</span><span>$310</span></div>
+                    <p class="text-[9px] opacity-50 italic mb-4">Lomito, Olímpico, Avocado, Cebolla Caramelizada.</p>
+                </div>
+            </div>
+
+            <!-- TAB: KIDS & PLATOS -->
+            <div id="kids-platos" class="tab-content hidden grid md:grid-cols-2 gap-x-16">
+                <div>
+                    <h4 class="category-header">Platos Kids</h4>
+                    <div class="menu-item"><span>Hamburguesa Casera Kids + Papas</span><span>$320</span></div>
+                    <div class="menu-item"><span>Mila Fingers + Papas/Cherrys</span><span>$320</span></div>
+                    <div class="menu-item"><span>Pollo Fingers + Papas/Cherrys</span><span>$320</span></div>
+                    <div class="menu-item"><span>Muffin de verduras (x2)</span><span>$160</span></div>
+                    <div class="menu-item"><span>Mini Pizzeta Mickey (x2)</span><span>$140</span></div>
+                    <div class="menu-item"><span>Tequeños (4 unidades)</span><span>$290</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Al Pan & Al Plato</h4>
+                    <p class="text-[9px] text-red-400 italic">No disponible de 16 a 19 hs</p>
+                    <div class="menu-item font-bold"><span>Al Pan Casero Completo</span><span>$520</span></div>
+                    <p class="text-[9px] opacity-50 mb-2">Hamburguesa, Milanesa Carne, Pollo o Vegetariana.</p>
+                    <div class="menu-item"><span>Wrap Masa Casera</span><span>$390</span></div>
+                    <div class="menu-item"><span>Churrasco de Cuadril/Pollo</span><span>$520</span></div>
+                    <div class="menu-item"><span>Tarta Individual c/ Ensalada</span><span>$390</span></div>
+                    <div class="menu-item"><span>Omelette JyQ</span><span>$390</span></div>
+                    <div class="menu-item"><span>Papas Fritas (Porción)</span><span>$240</span></div>
+                    <div class="menu-item"><span>Pizza Mozzarella (30cm)</span><span>$390</span></div>
+                </div>
+            </div>
+
+            <!-- TAB: CAFETERIA -->
+            <div id="cafeteria" class="tab-content hidden grid md:grid-cols-2 gap-x-16">
+                <div>
+                    <h4 class="category-header">Café de Especialidad (Honduras)</h4>
+                    <div class="menu-item"><span>Espresso (Catuai Rojo)</span><span>$130</span></div>
+                    <div class="menu-item"><span>Americano</span><span>$150</span></div>
+                    <div class="menu-item"><span>Doble Espresso</span><span>$180</span></div>
+                    <div class="menu-item font-bold"><span>Flat White / Latte</span><span>$200</span></div>
+                    <div class="menu-item"><span>Capuchino</span><span>$200</span></div>
+                    <div class="menu-item"><span>Vaso Leche sola / Yogurt</span><span>$100 / $120</span></div>
+                    <div class="menu-item"><span>Chocolatada</span><span>$160</span></div>
+                    <div class="menu-item"><span>Submarino (Barrita Aguila)</span><span>$210</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Especiales & Adicionales</h4>
+                    <div class="menu-item"><span>Lattes Especiales (Moka / Caramel)</span><span>$260</span></div>
+                    <div class="menu-item"><span>Capuchino Especial (Choco y Crema)</span><span>$300</span></div>
+                    <div class="menu-item"><span>Té Ceylan</span><span>$120</span></div>
+                    <div class="menu-item italic"><span>Adicional Leche Vegetal</span><span>$50</span></div>
+                    <div class="menu-item italic"><span>Adicional Crema Batida / Sabor</span><span>$50</span></div>
+                </div>
+            </div>
+
+            <!-- TAB: BEBIDAS -->
+            <div id="bebidas" class="tab-content hidden grid md:grid-cols-2 gap-x-16">
+                <div>
+                    <h4 class="category-header">Jugos Naturales</h4>
+                    <div class="menu-item"><span>Limonada (Menta y Jengibre) 1/2 L</span><span>$180</span></div>
+                    <div class="menu-item"><span>Jugo Naranja c/ pulpa 1/2 L</span><span>$180</span></div>
+                    <div class="menu-item"><span>Licuados de Fruta</span><span>$220</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Refrescos & Aguas</h4>
+                    <div class="menu-item"><span>Jarra Refresco 1/2 L / 1.5 L</span><span>$160 / $310</span></div>
+                    <div class="menu-item"><span>Agua Refill s/ gas 1/2 L / 1.5 L</span><span>$80 / $130</span></div>
+                    <div class="menu-item"><span>Agua Vitale c/ gas 1/2 L / 1.5 L</span><span>$140 / $220</span></div>
+                </div>
+            </div>
+
+            <!-- TAB: SIN GLUTEN -->
+            <div id="sin-gluten" class="tab-content hidden grid md:grid-cols-2 gap-x-16">
+                <div>
+                    <h4 class="category-header">Salados Apto Celíaco</h4>
+                    <div class="menu-item"><span>Pan lactal tostado (hummus/mermelada)</span><span>$190</span></div>
+                    <div class="menu-item"><span>Sándwich caliente Pan Lactal</span><span>$360</span></div>
+                    <div class="menu-item"><span>Chipá relleno / simple</span><span>$240 / $190</span></div>
+                </div>
+                <div>
+                    <h4 class="category-header">Dulces Apto Celíaco</h4>
+                    <div class="menu-item"><span>Alfajor s/ azúcar</span><span>$150</span></div>
+                    <div class="menu-item font-bold text-orange-700"><span>Pastafrola Membrillo</span><span>$250</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLUB DE BENEFICIOS & QR -->
+    <section id="club-beneficios" class="py-20 px-6">
+        <div class="max-w-5xl mx-auto club-card p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-grow">
+                <h2 class="text-3xl font-bold italic mb-6 text-[var(--naranja)]">Unite a nuestro Club Kids de Beneficios</h2>
+                <p class="text-lg mb-8 leading-relaxed">Acumulá <strong>caritas kids</strong> para ganarte entradas gratis y enterarte antes de todos los beneficios.</p>
+                <div class="space-y-4">
+                    <p class="text-xs font-bold uppercase opacity-60 italic">Nuestros otros proyectos:</p>
+                    <ul class="text-sm space-y-2 italic">
+                        <li>• Friends Salón de Fiestas (Comercio 2099)</li>
+                        <li>• Salón de Fiestas Infantiles (Bv. Batlle y Ordóñez 2623)</li>
+                        <li>• Recumple (Sorpresitas sustentables)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="bg-white p-6 rounded-3xl shadow-xl inline-block border-2 border-[var(--naranja)]/20">
+                    <!-- Placeholder QR -->
+                    <div class="w-40 h-40 bg-gray-100 flex items-center justify-center border-4 border-double border-[var(--naranja)]">
+                        <span class="text-[10px] uppercase font-black text-gray-400">Escaneá el QR</span>
+                    </div>
+                    <p class="mt-4 text-[10px] font-bold uppercase text-[var(--naranja)]">www.cafekids.com.uy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUCURSALES -->
+    <section id="locales" class="py-20 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl italic mb-4 text-[var(--cafe)]">Nuestras Casas</h2>
-                <div class="inline-block px-6 py-2 bg-[var(--beige)] rounded-full text-[10px] font-bold uppercase tracking-widest text-[var(--terracota)]">
-                    Abierto de Lunes a Domingo
-                </div>
-            </div>
-
+            <h2 class="text-4xl italic text-center mb-16">Ubicaciones</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                
-                <!-- Sucursal 1: Parque Batlle -->
-                <div class="local-card p-8">
-                    <div class="flex-grow">
-                        <span class="text-[10px] font-bold text-[var(--terracota)] uppercase tracking-widest">Parque Batlle</span>
-                        <h3 class="text-2xl font-bold mt-2 mb-4 italic text-[var(--cafe)]">Palmar 2448</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium italic">Esq. Pedro Campbell, Montevideo.</p>
-                        <div class="bg-[var(--crema)] p-4 rounded-2xl mb-4">
-                            <p class="text-[11px] font-bold text-[var(--cafe)] uppercase mb-1">Horarios</p>
-                            <p class="text-[11px] opacity-70">Lun a Vie: 11 a 21 hs<br>Sáb y Dom: 10 a 21 hs</p>
-                        </div>
-                    </div>
-                    <!-- Map 1 -->
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.2478!2d-56.1624!3d-34.9012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81076b1f9e2b%3A0xc345371c6d888f4b!2sPalmar%202448%2C%2011600%20Montevideo!5e0!3m2!1ses!2suy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                <div class="bg-white p-6 rounded-[2rem] shadow-sm">
+                    <h3 class="text-xl font-bold mb-2 italic">Parque Batlle</h3>
+                    <p class="text-[10px] opacity-60 mb-4">Palmar 2448 esq. Pedro Campbell</p>
+                    <iframe class="w-full h-40 rounded-2xl border-none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.24!2d-56.1624!3d-34.9012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81076b1f9e2b%3A0xc345371c6d888f4b!2sPalmar%202448!5e0!3m2!1ses!2suy!4v1"></iframe>
                 </div>
-
-                <!-- Sucursal 2: Nuevo Centro -->
-                <div class="local-card p-8">
-                    <div class="flex-grow">
-                        <span class="text-[10px] font-bold text-[var(--terracota)] uppercase tracking-widest">Nuevo Centro</span>
-                        <h3 class="text-2xl font-bold mt-2 mb-4 italic text-[var(--cafe)]">Luis A. de Herrera</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium italic">Nº 3444, Frente a Nuevo Centro.</p>
-                        <div class="bg-[var(--crema)] p-4 rounded-2xl mb-4">
-                            <p class="text-[11px] font-bold text-[var(--cafe)] uppercase mb-1">Horarios</p>
-                            <p class="text-[11px] opacity-70">Lun a Vie: 11 a 21 hs<br>Sáb y Dom: 10 a 21 hs</p>
-                        </div>
-                    </div>
-                    <!-- Map 2 -->
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.109!2d-56.1732!3d-34.8712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f806969696969%3A0x6969696969696969!2sAv.%20Dr.%20Luis%20Alberto%20de%20Herrera%203444!5e0!3m2!1ses!2suy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                <div class="bg-white p-6 rounded-[2rem] shadow-sm">
+                    <h3 class="text-xl font-bold mb-2 italic">Nuevo Centro</h3>
+                    <p class="text-[10px] opacity-60 mb-4">Luis A. de Herrera 3444</p>
+                    <iframe class="w-full h-40 rounded-2xl border-none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.10!2d-56.173!3d-34.871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f8069!2sAv%20Luis%20Alberto%20de%20Herrera%203444!5e0!3m2!1ses!2suy!4v1"></iframe>
                 </div>
-
-                <!-- Sucursal 3: Ciudad de la Costa -->
-                <div class="local-card p-8 border-2 border-[var(--terracota)]/20 shadow-lg shadow-orange-50">
-                    <div class="flex-grow">
-                        <span class="text-[10px] font-bold text-[var(--terracota)] uppercase tracking-widest">Ciudad de la Costa</span>
-                        <h3 class="text-2xl font-bold mt-2 mb-4 italic text-[var(--cafe)]">Shangrilá</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium italic">Centro Cultural Shangrilá, Venezuela y San Francisco.</p>
-                        <div class="bg-[var(--terracota)]/10 p-4 rounded-2xl mb-4">
-                            <p class="text-[11px] font-bold text-[var(--terracota)] uppercase mb-1 text-orange-900">Horario Diferencial</p>
-                            <p class="text-[11px] text-orange-800">Mar a Dom: 15 a 21 hs<br><span class="font-bold">(Lunes cerrado)</span></p>
-                        </div>
-                    </div>
-                    <!-- Map 3 -->
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.86!2d-56.002!3d-34.855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a0256!2zQ2VudHJvIEN1bHR1cmFsIFNoYW5ncmlsYSwgVmVuZXp1ZWxh!5e0!3m2!1ses!2suy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN: SEGURIDAD Y CONSENTIMIENTO -->
-    <section id="seguridad" class="py-24 px-6 bg-[var(--beige)] relative">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white p-10 md:p-16 rounded-[4rem] shadow-2xl">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl italic mb-4">Seguridad y Compromiso</h2>
-                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--terracota)]">Consentimiento Informado</p>
-                </div>
-
-                <div class="custom-scroll h-[350px] overflow-y-auto pr-6 text-sm text-gray-600 leading-relaxed font-light">
-                    <h4 class="font-bold text-[var(--cafe)] uppercase mb-4 tracking-tighter">Acuerdo de Usuario</h4>
-                    <p class="mb-4 italic bg-[var(--crema)] p-4 rounded-2xl border-l-4 border-[var(--terracota)]">
-                        Al ingresar a nuestras instalaciones, acepto y comprendo que el uso del patio de juegos tiene riesgos (fracturas, esguinces, etc.) y asumo total responsabilidad por los menores a mi cargo.
-                    </p>
-                    <p class="mb-4"><strong>Reglamento:</strong> Es obligatorio ingresar sin calzado. Solo se permite 1 adulto por niño en el área lúdica. Altura máxima permitida: 1.50 mts. No se permite violencia ni gritos.</p>
-                    <p>Autorizo el registro de imagen (fotos/video) para uso en redes sociales y web institucional, entendiendo que Café Kids es el titular de dichos materiales.</p>
+                <div class="bg-white p-6 rounded-[2rem] shadow-sm">
+                    <h3 class="text-xl font-bold mb-2 italic">Shangrilá</h3>
+                    <p class="text-[10px] opacity-60 mb-4">Venezuela y San Francisco</p>
+                    <iframe class="w-full h-40 rounded-2xl border-none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.86!2d-56.002!3d-34.855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a025!2zQ2VudHJvIEN1bHR1cmFsIFNoYW5ncrilsYQ!5e0!3m2!1ses!2suy!4v1"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="py-16 bg-white text-center border-t border-gray-100">
-        <img src="logo-cafekids.png" alt="Logo" class="h-16 mx-auto mb-8 opacity-40">
-        <div class="flex justify-center gap-8 text-[9px] font-black uppercase tracking-widest opacity-40">
-            <a href="https://instagram.com/cafekids.uy" target="_blank" class="hover:text-[var(--naranja-taza)] transition">Instagram</a>
-            <a href="#" class="hover:text-[var(--naranja-taza)] transition">WhatsApp</a>
+    <!-- COMPROMISO (Exacto a la imagen) -->
+    <section id="compromiso" class="py-24 px-6 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]">
+        <div class="max-w-4xl mx-auto compromiso-box">
+            <h2 class="text-4xl text-center mb-2 italic text-[#966b5d]">Compromiso Café Kids</h2>
+            <p class="text-center text-[10px] tracking-[0.2em] mb-10 text-[#966b5d] uppercase italic">Consentimiento informado y seguridad</p>
+            
+            <div class="h-[380px] overflow-y-auto pr-4 custom-scroll text-[14px] leading-relaxed text-gray-600 font-light">
+                <p class="mb-6 italic">A) Uso Responsable: Acepto usar las instalaciones siguiendo las normas indicadas. La negativa al cumplimiento podría llevar a la revocación del derecho de uso sin devolución de pago.</p>
+                <p class="mb-6">B) Salud: Informaré de cualquier lesión o accidente de inmediato antes de abandonar el local.</p>
+                <p class="mb-6">C) Emergencia: Autorizo al personal a obtener tratamiento médico de emergencia en mi nombre si fuera necesario, asumiendo los cargos correspondientes.</p>
+                <p class="mb-10">D) Imagen: Autorizo la toma de fotos y videos para uso en redes sociales y web institucional, entendiendo que el propietario es titular de dichas imágenes.</p>
+
+                <div class="reglamento-brown">
+                    <h4 class="text-xs font-bold uppercase tracking-widest mb-6 border-b border-white/20 pb-2 italic">Reglamento del patio de juegos</h4>
+                    <ul class="space-y-3 italic text-[13px]">
+                        <li>• Ingreso sin calzado obligatorio (calcetines).</li>
+                        <li>• No ingresar con comida, bebida o juguetes externos.</li>
+                        <li>• Se ingresa únicamente con las manos limpias.</li>
+                        <li>• Ingresa un sólo adulto por niño al patio de juegos.</li>
+                        <li>• Siempre tiene que haber un adulto responsable al cuidado.</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center mt-12 text-[9px] text-gray-400 uppercase tracking-widest">Este es un emprendimiento 100% uruguayo y familiar.</p>
         </div>
-        <div class="mt-12 text-[8px] opacity-30 uppercase tracking-widest">
-            © 2024 Café Kids Uruguay • Friends Salón • San Juan Intibucá Coffee Project.
-        </div>
-    </footer>
+    </section>
+
+    <footer class="py-12 text-center opacity-30 text-[8px] uppercase tracking-[0.5em]">© Café Kids Uruguay</footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+        window.onload = () => {
+            gsap.to("#loader", { opacity: 0, duration: 0.8, onComplete: () => document.getElementById("loader").style.display="none" });
+        };
 
-        // Loader
-        window.addEventListener('load', () => {
-            gsap.to("#loader", {
-                opacity: 0, duration: 1, ease: "power2.inOut",
-                onComplete: () => document.getElementById("loader").style.display = "none"
-            });
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
 
-            // Hero Animation
-            const tl = gsap.timeline();
-            tl.from("h1", { y: 80, opacity: 0, duration: 1.2, ease: "expo.out", delay: 0.5 })
-              .from("p", { y: 30, opacity: 0, duration: 1 }, "-=0.8");
-        });
-
-        // Cards Animation
-        gsap.from(".local-card", {
-            scrollTrigger: { trigger: "#locales", start: "top 80%" },
-            y: 60, opacity: 0, stagger: 0.2, duration: 1.2, ease: "power4.out"
-        });
-
-        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
