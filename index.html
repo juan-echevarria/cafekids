@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Kids | Coffee & Play</title>
+    <!-- Tailwind para utilidades rápidas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Pantalla de Carga (Branding) -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-[#F5EDE3] flex items-center justify-center">
+        <img src="https://i.ibb.co/Lzf71v5/logo-cafe-kids.png" alt="Logo" class="w-32 animate-pulse">
+    </div>
+
+    <!-- Navegación -->
+    <nav class="nav-glass fixed w-full z-50 px-6 py-4 flex justify-between items-center">
+        <img src="https://i.ibb.co/Lzf71v5/logo-cafe-kids.png" alt="Café Kids Logo" class="h-12">
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest text-[#8B5E4E]">
+            <a href="#experiencia" class="nav-link">Experiencia</a>
+            <a href="#menu" class="nav-link">Menú</a>
+            <a href="#consentimiento" class="nav-link text-[#B78476]">Seguridad</a>
+        </div>
+        <a href="#locales" class="btn-primary text-white px-6 py-3 rounded-full text-xs font-bold tracking-tighter uppercase">
+            Encontrá tu local
+        </a>
+    </nav>
+
+    <!-- Hero Section con Texturas -->
+    <header class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="pattern-overlay"></div>
+        <div class="max-w-4xl text-center z-10 px-6">
+            <span class="tag mb-4 inline-block">10 años creando memorias en familia</span>
+            <h1 class="text-6xl md:text-8xl font-bold leading-none mb-6">
+                El café es para ti,<br>
+                <span class="italic font-light text-[#B78476]">la magia es de ellos.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-[#8B5E4E]/80 mb-10 max-w-2xl mx-auto">
+                Diseñado por padres uruguayos para familias que buscan diseño, calidad y conexión real.
+            </p>
+        </div>
+    </header>
+
+    <!-- Sección de Locales (Nueva) -->
+    <section id="locales" class="py-24 px-6 bg-[#F5EDE3]">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl italic mb-12 text-center">Nuestros Espacios</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Local 1 -->
+                <div class="local-card bg-white p-8 rounded-[3rem] shadow-xl">
+                    <h3 class="text-2xl font-bold mb-2">Café Kids Central</h3>
+                    <p class="text-sm opacity-60 mb-6 uppercase tracking-widest">Montevideo, Uruguay</p>
+                    <p class="text-gray-600 mb-6">Nuestro buque insignia. Café de especialidad y el patio de juegos más completo de la ciudad.</p>
+                    <a href="https://maps.google.com" target="_blank" class="text-[#B78476] font-bold border-b-2 border-[#B78476]">Ver en el mapa →</a>
+                </div>
+                <!-- Local 2 -->
+                <div class="local-card bg-white p-8 rounded-[3rem] shadow-xl">
+                    <h3 class="text-2xl font-bold mb-2">Friends Salón de Fiestas</h3>
+                    <p class="text-sm opacity-60 mb-6 uppercase tracking-widest">Comercio 2099</p>
+                    <p class="text-gray-600 mb-6">El origen de nuestra familia. Salón boutique para eventos privados y celebraciones únicas.</p>
+                    <a href="https://maps.google.com" target="_blank" class="text-[#B78476] font-bold border-b-2 border-[#B78476]">Ver en el mapa →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consentimiento Informado (Integrado) -->
+    <section id="consentimiento" class="py-24 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-[#FFF9F4] p-12 rounded-[4rem] border-2 border-dashed border-[#B78476]/30">
+                <h2 class="text-3xl italic mb-8 text-center text-[#8B5E4E]">Seguridad y Compromiso</h2>
+                <div class="space-y-6 text-sm text-gray-600 leading-relaxed max-h-[400px] overflow-y-auto pr-4 custom-scroll">
+                    <p class="font-bold text-[#B78476] uppercase tracking-tighter">Consentimiento Informado y Asunción de Riesgo</p>
+                    <p>El uso del patio de juegos y cualquier actividad dentro de nuestras instalaciones tiene riesgos. Estos podrían ocasionar lesiones físicas, emocionales, o daños a terceros. Estos riesgos incluyen la posibilidad de lesiones como fracturas, esguinces, hematomas, luxaciones, lesiones en cabeza y cuerpo.</p>
+                    
+                    <p><strong>Condiciones de Uso:</strong></p>
+                    <ul class="list-disc pl-5 space-y-2 italic">
+                        <li>Uso responsable siguiendo las normas indicadas.</li>
+                        <li>Notificación inmediata de cualquier indisposición o lesión.</li>
+                        <li>Autorización de tratamiento médico de emergencia en caso de necesidad.</li>
+                        <li>Asunción de riesgos inherentes a la actividad física.</li>
+                        <li>Autorización de registro de imagen (fotos/videos) para fines institucionales (sin nombres).</li>
+                    </ul>
+
+                    <p>Al ingresar a nuestras instalaciones, usted certifica haber leído y comprendido que este documento supone la renuncia a ciertos derechos legales de forma voluntaria.</p>
+                    
+                    <div class="bg-[var(--cafe)] text-white p-6 rounded-3xl mt-6">
+                        <h4 class="font-bold mb-2 uppercase tracking-widest text-[10px]">Reglamento de Convivencia</h4>
+                        <p class="text-[11px] opacity-80 italic italic">Sin calzado (calcetines obligatorios) • No comida en juegos • Solo 1 adulto acompañante • Respeto y no violencia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
