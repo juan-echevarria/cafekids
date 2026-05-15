@@ -1,0 +1,187 @@
+ :root {
+     --crema: #FFF9F4;
+     --cafe: #8B5E4E;
+     --terracota: #B78476;
+     --naranja: #D97D0D;
+     --beige: #F5EDE3;
+     --verde: #A8B9A5;
+ }
+
+ body {
+     font-family: 'Plus Jakarta Sans', sans-serif;
+     background-color: var(--crema);
+     color: var(--cafe);
+     margin: 0;
+     overflow-x: hidden;
+ }
+
+ h1,
+ h2,
+ h3,
+ h4,
+ .font-serif {
+     font-family: 'Playfair Display', serif;
+ }
+
+ body::before {
+     content: "";
+     position: fixed;
+     inset: 0;
+     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+     opacity: 0.4;
+     pointer-events: none;
+     z-index: 1000;
+ }
+
+ /* Navbar & Rayita fluida */
+ .nav-glass {
+     background: rgba(255, 249, 254, 0.95);
+     backdrop-filter: blur(12px);
+     border-bottom: 1px solid rgba(139, 94, 78, 0.1);
+ }
+
+ #nav-indicator {
+     position: absolute;
+     bottom: -2px;
+     height: 3px;
+     background-color: var(--terracota);
+     transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+     border-radius: 10px;
+ }
+
+ /* Galeria Bento reparada para que las fotos luzcan bien */
+ .bento-gallery {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 12px;
+ }
+
+ .bento-item {
+     border-radius: 2rem;
+     overflow: hidden;
+     position: relative;
+     cursor: zoom-in;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+     aspect-ratio: 4/5;
+ }
+
+ .bento-item img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     transition: 0.8s ease;
+ }
+
+ .bento-item:hover img {
+     transform: scale(1.1);
+ }
+
+ /* Estilos Menu Real de Fotos */
+ .menu-row {
+     display: flex;
+     justify-content: space-between;
+     border-bottom: 1px solid rgba(139, 94, 78, 0.08);
+     padding: 12px 0;
+     font-weight: 600;
+     font-size: 0.9rem;
+ }
+
+ .item-sub {
+     font-size: 0.75rem;
+     color: #888;
+     font-style: italic;
+     display: block;
+     font-weight: 400;
+     margin-top: 2px;
+ }
+
+ .tab-btn.active {
+     color: var(--terracota);
+     border-bottom: 2px solid var(--terracota);
+     font-weight: 800;
+ }
+
+ .cat-title {
+     color: var(--terracota);
+     font-weight: 800;
+     text-transform: uppercase;
+     font-size: 0.7rem;
+     letter-spacing: 2px;
+     border-bottom: 1px solid var(--beige);
+     margin: 2rem 0 1rem;
+ }
+
+ /* Sistema Zoom */
+ #lightbox {
+     display: none;
+     position: fixed;
+     z-index: 99999;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.95);
+     backdrop-filter: blur(10px);
+     align-items: center;
+     justify-content: center;
+     cursor: zoom-out;
+ }
+
+ #lightbox img {
+     max-width: 95%;
+     max-height: 90vh;
+     border-radius: 8px;
+     transform: scale(0.9);
+     transition: 0.4s;
+ }
+
+ #lightbox.active img {
+     transform: scale(1);
+ }
+
+ .reglamento-brown {
+     background: #966b5d;
+     color: #fdf2f0;
+     padding: 40px;
+     border-radius: 40px;
+ }
+
+ .glass-card {
+     background: rgba(255, 255, 255, 0.7);
+     backdrop-filter: blur(10px);
+     border-radius: 3.5rem;
+     border: 1px solid white;
+ }
+
+ .bubble {
+     position: absolute;
+     border-radius: 50%;
+     filter: blur(80px);
+     opacity: 0.1;
+     z-index: -1;
+     animation: float 15s infinite alternate ease-in-out;
+ }
+
+ @keyframes float {
+     0% {
+         transform: translate(0, 0);
+     }
+
+     100% {
+         transform: translate(60px, 40px);
+     }
+ }
+
+ /* Highlight para localizador */
+ .closest-highlight {
+     box-shadow: 0 0 60px rgba(217, 125, 13, 0.4);
+     transform: scale(1.03);
+     transition: 0.5s ease-out;
+ }
+
+ #loader {
+     position: fixed;
+     inset: 0;
+     z-index: 99999;
+     background: var(--beige);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
