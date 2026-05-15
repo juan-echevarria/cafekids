@@ -1,72 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Café Kids Uruguay | 2026 Master Site</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <style>
-        :root {
-            --crema: #FFF9F4; --cafe: #8B5E4E; --terracota: #B78476; 
-            --naranja: #D97D0D; --beige: #F5EDE3; --verde: #A8B9A5;
-        }
 
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--crema); color: var(--cafe); margin: 0; overflow-x: hidden; scroll-behavior: smooth; }
-        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
-
-        body::before {
-            content: ""; position: fixed; inset: 0; 
-            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            opacity: 0.4; pointer-events: none; z-index: 1000;
-        }
-
-        /* Navbar & Rayita fluida */
-        .nav-glass { background: rgba(255, 249, 254, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(139, 94, 78, 0.1); }
-        #nav-indicator {
-            position: absolute; bottom: -2px; height: 3px; background-color: var(--terracota);
-            transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1); border-radius: 10px;
-        }
-
-        /* Galeria Bento reparada para que las fotos luzcan bien */
-        .bento-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .bento-item { border-radius: 2rem; overflow: hidden; position: relative; cursor: zoom-in; box-shadow: 0 4px 15px rgba(0,0,0,0.05); aspect-ratio: 4/5; }
-        .bento-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s ease; }
-        .bento-item:hover img { transform: scale(1.1); }
-
-        /* Estilos Menu Real de Fotos */
-        .menu-row { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(139,94,78,0.08); padding: 12px 0; font-weight: 600; font-size: 0.9rem; }
-        .item-sub { font-size: 0.75rem; color: #888; font-style: italic; display: block; font-weight: 400; margin-top: 2px; }
-        .tab-btn.active { color: var(--terracota); border-bottom: 2px solid var(--terracota); font-weight: 800; }
-        .cat-title { color: var(--terracota); font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; border-bottom: 1px solid var(--beige); margin: 2rem 0 1rem; }
-
-        /* Sistema Zoom */
-        #lightbox {
-            display: none; position: fixed; z-index: 99999; inset: 0; 
-            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px);
-            align-items: center; justify-content: center; cursor: zoom-out;
-        }
-        #lightbox img { max-width: 95%; max-height: 90vh; border-radius: 8px; transform: scale(0.9); transition: 0.4s; }
-        #lightbox.active img { transform: scale(1); }
-
-        .reglamento-brown { background: #966b5d; color: #fdf2f0; padding: 40px; border-radius: 40px; }
-        .glass-card { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 3.5rem; border: 1px solid white; }
-        .bubble { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.1; z-index: -1; animation: float 15s infinite alternate ease-in-out; }
-        @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(60px, 40px); } }
-
-        /* Highlight para localizador */
-        .closest-highlight { ring: 8px solid var(--naranja); box-shadow: 0 0 60px rgba(217, 125, 13, 0.4); transform: scale(1.03); transition: 0.5s ease-out; }
-
-        #loader { position: fixed; inset: 0; z-index: 99999; background: var(--beige); display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
+
 <body>
 
-    <div id="loader"><img src="logo-cafekids.png" alt="Cargando..." class="w-48 animate-pulse"></div>
+    <div id="loader"><img src="img/logo-cafekids.png" alt="Cargando..." class="w-48 animate-pulse"></div>
 
     <div id="lightbox" onclick="this.classList.remove('active'); setTimeout(()=>this.style.display='none', 400)">
         <img id="lightbox-img" src="">
@@ -74,17 +30,20 @@
 
     <!-- Navegación Magnetica -->
     <nav class="nav-glass fixed w-full z-[100] px-6 md:px-12 py-3 flex justify-between items-center">
-        <img src="logo-cafekids.png" alt="Café Kids" class="h-10 md:h-12">
-        <div class="relative hidden lg:flex gap-10 text-[10px] font-bold uppercase tracking-widest text-[var(--cafe)]" id="nav-menu">
+        <img src="img/logo-cafekids.png" alt="Café Kids" class="h-10 md:h-12">
+        <div class="relative hidden lg:flex gap-10 text-[10px] font-bold uppercase tracking-widest text-[var(--cafe)]"
+            id="nav-menu">
             <a href="#inicio" class="nav-link py-1">Inicio</a>
             <a href="#familia" class="nav-link py-1">Familia</a>
             <a href="#experiencia" class="nav-link py-1">Experiencia</a>
             <a href="#carta-master" class="nav-link py-1">Carta 2026</a>
             <a href="#sucursales" class="nav-link py-1">Locales</a>
-            <a href="#compromiso-legal" class="nav-link py-1">Seguridad</a>
+            <a href="#seguridad" class="nav-link py-1">Seguridad</a>
             <div id="nav-indicator"></div>
         </div>
-        <button onclick="findNearest()" class="btn-naranja bg-[var(--naranja)] text-white px-8 py-2.5 rounded-full text-[10px] font-black uppercase shadow-lg transition hover:scale-105">Ubicación más cercana</button>
+        <button onclick="findNearest()"
+            class="btn-naranja bg-[var(--naranja)] text-white px-8 py-2.5 rounded-full text-[10px] font-black uppercase shadow-lg transition hover:scale-105">Ubicación
+            más cercana</button>
     </nav>
 
     <!-- FIGURAS VIVAS FONDO -->
@@ -94,9 +53,16 @@
     <!-- HERO -->
     <section id="inicio" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
         <div class="max-w-5xl space-y-10">
-            <span class="inline-block px-5 py-2 bg-[var(--cafe)] text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">Bienvenido a Café Kids | Uruguay</span>
-            <h1 class="text-7xl md:text-[9.5rem] font-bold leading-none tracking-tighter text-[var(--cafe)] italic font-serif italic">Tu Momento, <br><span class="italic font-light text-[var(--terracota)] font-serif italic">Su Mundo.</span></h1>
-            <p class="text-xl md:text-2xl text-stone-500 font-light max-w-4xl mx-auto leading-relaxed italic">Un rico café de especialidad combinado con un espacio recreativo pensado exclusivamente para la primera infancia.</p>
+            <span
+                class="inline-block px-5 py-2 bg-[var(--cafe)] text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">Bienvenido
+                a Café Kids | Uruguay</span>
+            <h1
+                class="text-7xl md:text-[9.5rem] font-bold leading-none tracking-tighter text-[var(--cafe)] italic font-serif italic">
+                Tu Momento, <br><span class="italic font-light text-[var(--terracota)] font-serif italic">Su
+                    Mundo.</span></h1>
+            <p class="text-xl md:text-2xl text-stone-500 font-light max-w-4xl mx-auto leading-relaxed italic">Un rico
+                café de especialidad combinado con un espacio recreativo pensado exclusivamente para la primera
+                infancia.</p>
         </div>
     </section>
 
@@ -107,32 +73,39 @@
                 <div class="space-y-8">
                     <h2 class="text-6xl font-serif italic text-[var(--cafe)]">Somos Familia</h2>
                     <div class="space-y-6 text-gray-600 leading-relaxed font-light">
-                        <p class="text-xl italic">Somos una familia emprendedora hace más de 10 años en eventos. Friends Fiestas y Friends Kids nacieron en 2012 y hoy traemos el sueño de Café Kids.</p>
-                        <p>Nacemos para que padres de niños pequeños tengan un refugio estético y cálido. Hoy nuestras hijas de <strong>7 y 9 años</strong> son curadoras del espacio.</p>
-                        
+                        <p class="text-xl italic">Somos una familia emprendedora hace más de 10 años en eventos. Friends
+                            Fiestas y Friends Kids nacieron en 2012 y hoy traemos el sueño de Café Kids.</p>
+                        <p>Nacemos para que padres de niños pequeños tengan un refugio estético y cálido. Hoy nuestras
+                            hijas de <strong>7 y 9 años</strong> son curadoras del espacio.</p>
+
                         <div class="grid md:grid-cols-2 gap-8 pt-6 border-t border-stone-100">
                             <div>
-                                <h4 class="font-bold text-[var(--cafe)] uppercase text-xs mb-3 italic tracking-widest">Nuestro Equipo</h4>
-                                <p class="text-sm italic leading-relaxed opacity-70">Comprometidos en que los adultos disfruten su momento mientras los hijos están seguros y contenidos.</p>
+                                <h4 class="font-bold text-[var(--cafe)] uppercase text-xs mb-3 italic tracking-widest">
+                                    Nuestro Equipo</h4>
+                                <p class="text-sm italic leading-relaxed opacity-70">Comprometidos en que los adultos
+                                    disfruten su momento mientras los hijos están seguros y contenidos.</p>
                             </div>
                             <div>
-                                <h4 class="font-bold text-[var(--cafe)] uppercase text-xs mb-3 italic tracking-widest">El Espacio</h4>
-                                <p class="text-sm italic leading-relaxed opacity-70">Nuestra casa cuenta con niveles desde plaza de juegos mini ciudad hasta un exclusivo <strong>Roofkids al aire libre</strong>.</p>
+                                <h4 class="font-bold text-[var(--cafe)] uppercase text-xs mb-3 italic tracking-widest">
+                                    El Espacio</h4>
+                                <p class="text-sm italic leading-relaxed opacity-70">Nuestra casa cuenta con niveles
+                                    desde plaza de juegos mini ciudad hasta un exclusivo <strong>Roofkids al aire
+                                        libre</strong>.</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Bento Gallery de las 9 fotos corregido -->
                 <div class="bento-gallery">
-                    <div class="bento-item" onclick="zoom('1.jpg')"><img src="1.jpg"></div>
-                    <div class="bento-item" onclick="zoom('2.jpg')"><img src="2.jpg"></div>
-                    <div class="bento-item" onclick="zoom('3.jpg')"><img src="3.jpg"></div>
-                    <div class="bento-item" onclick="zoom('4.jpg')"><img src="4.jpg"></div>
-                    <div class="bento-item" onclick="zoom('5.jpg')"><img src="5.jpg"></div>
-                    <div class="bento-item" onclick="zoom('6.jpg')"><img src="6.jpg"></div>
-                    <div class="bento-item" onclick="zoom('7.jpg')"><img src="7.jpg"></div>
-                    <div class="bento-item" onclick="zoom('8.jpg')"><img src="8.jpg"></div>
-                    <div class="bento-item" onclick="zoom('9.jpg')"><img src="9.jpg"></div>
+                    <div class="bento-item" onclick="zoom('1.jpg')"><img src="img/1.jpg"></div>
+                    <div class="bento-item" onclick="zoom('2.jpg')"><img src="img/2.jpg"></div>
+                    <div class="bento-item" onclick="zoom('3.jpg')"><img src="img/3.jpg"></div>
+                    <div class="bento-item" onclick="zoom('4.jpg')"><img src="img/4.jpg"></div>
+                    <div class="bento-item" onclick="zoom('5.jpg')"><img src="img/5.jpg"></div>
+                    <div class="bento-item" onclick="zoom('6.jpg')"><img src="img/6.jpg"></div>
+                    <div class="bento-item" onclick="zoom('7.jpg')"><img src="img/7.jpeg"></div>
+                    <div class="bento-item" onclick="zoom('8.jpg')"><img src="img/8.jpeg"></div>
+                    <div class="bento-item" onclick="zoom('9.jpg')"><img src="img/9.jpg"></div>
                 </div>
             </div>
         </div>
@@ -142,41 +115,53 @@
     <section id="experiencia" class="py-24 px-6 bg-[var(--beige)] overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-20 items-center mb-24">
-                <div class="bento-item rounded-[4rem] h-[550px] shadow-2xl" onclick="zoom('9.jpg')">
-                    <img src="9.jpg" class="w-full h-full object-cover">
+                <div class="bento-item rounded-[4rem] h-[550px] shadow-2xl" onclick="zoom('/img/9.jpg')">
+                    <img src="img/9.jpg" class="w-full h-full object-cover">
                 </div>
                 <div class="space-y-8">
                     <h2 class="text-6xl font-serif italic text-[var(--cafe)] italic">Espacio Juegos & Arte</h2>
                     <ul class="space-y-6 text-gray-700 italic text-lg leading-relaxed">
                         <li>🎁 <strong>Enero/Febrero:</strong> Consumo > $1500 incluye 2 tickets sin costo.</li>
-                        <li>🎨 <strong>Craft Kids:</strong> Área de Arte co-creada con Recumple (15:00 a 20:30 hs) para intervenir productos uruguayos sustentables con talleristas.</li>
+                        <li>🎨 <strong>Craft Kids:</strong> Área de Arte co-creada con Recumple (15:00 a 20:30 hs) para
+                            intervenir productos uruguayos sustentables con talleristas.</li>
                         <li>👣 <strong>Sin Zapatos:</strong> Obligatorio por higiene. Contamos con zapatero.</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Juego de Roles Beneficios -->
-            <div class="text-center mb-16 italic font-bold opacity-30 text-xs uppercase tracking-[0.4em]">Propuesta Educativa: El Juego de Roles</div>
+            <div class="text-center mb-16 italic font-bold opacity-30 text-xs uppercase tracking-[0.4em]">Propuesta
+                Educativa: El Juego de Roles</div>
             <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
                 <div class="glass-card p-10 shadow-xl shadow-stone-200">
-                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">Sociales</h5>
-                    <p class="text-[11px] leading-relaxed italic text-gray-400">Cooperación y resolución de conflictos mediante personajes.</p>
+                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">
+                        Sociales</h5>
+                    <p class="text-[11px] leading-relaxed italic text-gray-400">Cooperación y resolución de conflictos
+                        mediante personajes.</p>
                 </div>
                 <div class="glass-card p-10 shadow-xl shadow-stone-200">
-                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">Creatividad</h5>
-                    <p class="text-[11px] leading-relaxed italic text-gray-400">Historias infinitas que permiten pensamiento flexible.</p>
+                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">
+                        Creatividad</h5>
+                    <p class="text-[11px] leading-relaxed italic text-gray-400">Historias infinitas que permiten
+                        pensamiento flexible.</p>
                 </div>
                 <div class="glass-card p-10 shadow-xl shadow-stone-200">
-                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">Comunicación</h5>
-                    <p class="text-[11px] leading-relaxed italic text-gray-400">Vocabulario rico mediante negociación del juego.</p>
+                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">
+                        Comunicación</h5>
+                    <p class="text-[11px] leading-relaxed italic text-gray-400">Vocabulario rico mediante negociación
+                        del juego.</p>
                 </div>
                 <div class="glass-card p-10 shadow-xl shadow-stone-200">
-                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">Cognición</h5>
-                    <p class="text-[11px] leading-relaxed italic text-gray-400">Intercambio matemático básico en mercado y construcción.</p>
+                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">
+                        Cognición</h5>
+                    <p class="text-[11px] leading-relaxed italic text-gray-400">Intercambio matemático básico en mercado
+                        y construcción.</p>
                 </div>
                 <div class="glass-card p-10 shadow-xl shadow-stone-200">
-                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">Autonomía</h5>
-                    <p class="text-[11px] leading-relaxed italic text-gray-400">Decidir quién ser hoy da un sentido de control vital.</p>
+                    <h5 class="font-bold text-[var(--terracota)] mb-4 text-xs tracking-widest uppercase italic italic">
+                        Autonomía</h5>
+                    <p class="text-[11px] leading-relaxed italic text-gray-400">Decidir quién ser hoy da un sentido de
+                        control vital.</p>
                 </div>
             </div>
         </div>
@@ -187,15 +172,24 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 bg-[var(--beige)] p-12 rounded-[5rem]">
                 <h2 class="text-5xl font-serif italic mb-6">Café de Honduras | Finca Santa Elena</h2>
-                <p class="text-lg text-stone-500 italic italic leading-relaxed italic italic max-w-4xl mx-auto italic italic">Proveniente de San Juan Intibucá, esta finca fusiona tradición y tecnología para cultivar el Catuai Rojo (100% arábico) entre 1.340-1.600 metros de altura.</p>
+                <p
+                    class="text-lg text-stone-500 italic italic leading-relaxed italic italic max-w-4xl mx-auto italic italic">
+                    Proveniente de San Juan Intibucá, esta finca fusiona tradición y tecnología para cultivar el Catuai
+                    Rojo (100% arábico) entre 1.340-1.600 metros de altura.</p>
             </div>
 
             <div class="flex flex-wrap justify-center gap-6 mb-16 overflow-x-auto pb-4" id="carta-tabs">
-                <button onclick="showTab('sal')" class="tab-btn active text-[10px] tracking-widest font-black italic">SALADOS & CASERITOS</button>
-                <button onclick="showTab('kid')" class="tab-btn text-[10px] tracking-widest font-black italic">PLATO NIÑOS & COCINA</button>
-                <button onclick="showTab('bar')" class="tab-btn text-[10px] tracking-widest font-black italic">BARISTAS & CAFÉ</button>
-                <button onclick="showTab('liq')" class="tab-btn text-[10px] tracking-widest font-black italic">JUGOS & JARRA REFILL</button>
-                <button onclick="showTab('cel')" class="tab-btn text-green-700 text-[10px] tracking-widest font-black italic">OPCIÓN SIN GLUTEN</button>
+                <button onclick="showTab('sal')"
+                    class="tab-btn active text-[10px] tracking-widest font-black italic">SALADOS & CASERITOS</button>
+                <button onclick="showTab('kid')" class="tab-btn text-[10px] tracking-widest font-black italic">PLATO
+                    NIÑOS & COCINA</button>
+                <button onclick="showTab('bar')" class="tab-btn text-[10px] tracking-widest font-black italic">BARISTAS
+                    & CAFÉ</button>
+                <button onclick="showTab('liq')" class="tab-btn text-[10px] tracking-widest font-black italic">JUGOS &
+                    JARRA REFILL</button>
+                <button onclick="showTab('cel')"
+                    class="tab-btn text-green-700 text-[10px] tracking-widest font-black italic">OPCIÓN SIN
+                    GLUTEN</button>
             </div>
 
             <!-- Tab Contenidos literals de las fotos -->
@@ -204,7 +198,10 @@
                     <h4 class="cat-title">Los Favoritos</h4>
                     <div class="menu-row"><span>Sándwich Caliente JyQ (Pan de miga)</span><span>$360</span></div>
                     <div class="menu-row"><span>Sándwich Frío JyQ / Bondiola / Capresse</span><span>$350</span></div>
-                    <div class="menu-row"><div>Pan de Nuez Casero Relleno <span class="item-sub">Rúcula y Philadelphia / Bondiola o Capresse</span></div><span>$310</span></div>
+                    <div class="menu-row">
+                        <div>Pan de Nuez Casero Relleno <span class="item-sub">Rúcula y Philadelphia / Bondiola o
+                                Capresse</span></div><span>$310</span>
+                    </div>
                     <div class="menu-row"><span>Croissant Hojaldre Relleno</span><span>$260</span></div>
                     <div class="menu-row"><span>Croissant Simple</span><span>$130</span></div>
                     <div class="menu-row"><span>Medialuna JyQ</span><span>$260</span></div>
@@ -213,35 +210,49 @@
                     <h4 class="cat-title">De Nuestra Cocina</h4>
                     <div class="menu-row"><span>Tostón Masa Madre con Palta y Huevo</span><span>$310</span></div>
                     <div class="menu-row"><span>Tostón Masa Madre Hummus y Oliva</span><span>$310</span></div>
-                    <div class="menu-row font-bold text-orange-500"><span>REFUERCITO CASERO (PROMOCION)</span><span>$310</span></div>
-                    <p class="item-sub italic italic mt-2 italic italic opacity-50 mb-6 italic underline italic">Lomito, Olímpico, Avocado, Cebolla Caramelizada.</p>
+                    <div class="menu-row font-bold text-orange-500"><span>REFUERCITO CASERO
+                            (PROMOCION)</span><span>$310</span></div>
+                    <p class="item-sub italic italic mt-2 italic italic opacity-50 mb-6 italic underline italic">Lomito,
+                        Olímpico, Avocado, Cebolla Caramelizada.</p>
                     <div class="menu-row"><span>Scon de Queso (Dulce o Manteca)</span><span>$140</span></div>
-                    <div class="menu-row"><span>Scon Relleno / Chipá de Queso Clásico</span><span>$220 / $190</span></div>
+                    <div class="menu-row"><span>Scon Relleno / Chipá de Queso Clásico</span><span>$220 / $190</span>
+                    </div>
                 </div>
             </div>
 
             <div id="kid" class="tab-content hidden grid md:grid-cols-2 gap-x-20 text-left">
                 <div>
                     <h4 class="cat-title text-[var(--naranja)] underline italic">Propuesta Platos Kids</h4>
-                    <div class="menu-row font-bold"><div>Hamburguesa Kids <span class="item-sub font-bold text-green-700">Contiene Avena y Huevo</span></div><span>$320</span></div>
+                    <div class="menu-row font-bold">
+                        <div>Hamburguesa Kids <span class="item-sub font-bold text-green-700">Contiene Avena y
+                                Huevo</span></div><span>$320</span>
+                    </div>
                     <div class="menu-row"><span>Mila o Pollo Fingers + Papas o Cherry</span><span>$320</span></div>
                     <div class="menu-row"><span>Mini Pizzeta Mickey x2 c/ Muzzarella</span><span>$140</span></div>
-                    <div class="menu-row"><span>Tequeños (4 unidades) / Muffin Verdura</span><span>$290 / $160</span></div>
+                    <div class="menu-row"><span>Tequeños (4 unidades) / Muffin Verdura</span><span>$290 / $160</span>
+                    </div>
                 </div>
                 <div>
-                    <h4 class="cat-title italic text-stone-300">Plato Gourmet <span class="text-[8px] opacity-60">no disponible 16 a 19 hs</span></h4>
+                    <h4 class="cat-title italic text-stone-300">Plato Gourmet <span class="text-[8px] opacity-60">no
+                            disponible 16 a 19 hs</span></h4>
                     <div class="menu-row"><span>Hamburguesa Completa Gourmet c/ Papas</span><span>$520</span></div>
                     <div class="menu-row"><span>Wrap Masa Casera Veg / Pollo / Carne</span><span>$390</span></div>
-                    <div class="menu-row"><span>Tarta c/ Ensalada / Milanesas Gourmet</span><span>$390 / $520</span></div>
+                    <div class="menu-row"><span>Tarta c/ Ensalada / Milanesas Gourmet</span><span>$390 / $520</span>
+                    </div>
                 </div>
             </div>
 
             <div id="bar" class="tab-content hidden grid md:grid-cols-2 gap-x-20 text-left italic">
                 <div>
-                    <h4 class="cat-title underline italic underline-offset-4 decoration-stone-200">Cafetería Especializada</h4>
+                    <h4 class="cat-title underline italic underline-offset-4 decoration-stone-200">Cafetería
+                        Especializada</h4>
                     <div class="menu-row"><span>Espresso (Santa Elena)</span><span>$130</span></div>
-                    <div class="menu-row"><span>Americano (Agua Caliente) / Doble Espresso</span><span>$150 / $180</span></div>
-                    <div class="menu-row font-bold text-[var(--terracota)] italic italic italic underline italic underline-offset-2 italic"><span>Flat White / Latte Latte</span><span>$200</span></div>
+                    <div class="menu-row"><span>Americano (Agua Caliente) / Doble Espresso</span><span>$150 /
+                            $180</span></div>
+                    <div
+                        class="menu-row font-bold text-[var(--terracota)] italic italic italic underline italic underline-offset-2 italic">
+                        <span>Flat White / Latte Latte</span><span>$200</span>
+                    </div>
                     <div class="menu-row"><span>Capuchino Clásico</span><span>$200</span></div>
                 </div>
                 <div>
@@ -249,7 +260,8 @@
                     <div class="menu-row"><span>Submarino con chocolate AGUILA</span><span>$210</span></div>
                     <div class="menu-row"><span>Latte Moka / Caramel Machiato</span><span>$260</span></div>
                     <div class="menu-row"><span>Chocolatada / Vaso Yogurt Natural</span><span>$160 / $120</span></div>
-                    <div class="menu-row italic opacity-40 italic underline italic underline-offset-8"><span>Leches vegetales o extrasabor</span><span>+$50</span></div>
+                    <div class="menu-row italic opacity-40 italic underline italic underline-offset-8"><span>Leches
+                            vegetales o extrasabor</span><span>+$50</span></div>
                 </div>
             </div>
 
@@ -258,23 +270,27 @@
                     <h4 class="cat-title underline italic underline-offset-4 italic">Refrescantes</h4>
                     <div class="menu-row font-bold"><span>Licuados Base Agua, Jugo o Leche</span><span>$220</span></div>
                     <p class="item-sub">Fresa, Arándano, Multifruta, Kiwi, Banana.</p>
-                    <div class="menu-row"><span>Limonada Menta y Jengibre (0.5 o 1.5L)</span><span>$180 / $310</span></div>
+                    <div class="menu-row"><span>Limonada Menta y Jengibre (0.5 o 1.5L)</span><span>$180 / $310</span>
+                    </div>
                     <div class="menu-row"><span>Jugo Naranja natural (0.5 o 1.5L)</span><span>$180 / $390</span></div>
                 </div>
                 <div>
                     <h4 class="cat-title italic">Aguas & Refresh</h4>
                     <div class="menu-row italic"><span>Jarra Coca Cola o Coca Zero 1.5L</span><span>$310</span></div>
                     <div class="menu-row"><span>Agua Vitale con gas Jarra 0.5/1.5L</span><span>$140 / $220</span></div>
-                    <div class="menu-row italic opacity-50 underline"><span>Agua sin gas REFILL en Jarra</span><span>$80 / $130</span></div>
+                    <div class="menu-row italic opacity-50 underline"><span>Agua sin gas REFILL en Jarra</span><span>$80
+                            / $130</span></div>
                 </div>
             </div>
 
             <div id="cel" class="tab-content hidden grid md:grid-cols-1 max-w-4xl mx-auto italic italic text-green-900">
                 <div class="bg-green-50 p-16 rounded-[4rem] border border-green-200">
-                    <h4 class="cat-title text-green-600 mb-6 italic underline underline-offset-8">Consultar disponibilidad - Celíacos</h4>
+                    <h4 class="cat-title text-green-600 mb-6 italic underline underline-offset-8">Consultar
+                        disponibilidad - Celíacos</h4>
                     <div class="menu-row"><span>Sándwich JyQ Pan Lactal Sin Gluten</span><span>$360</span></div>
                     <div class="menu-row"><span>Chipá Relleno Mandioca Capresse</span><span>$240</span></div>
-                    <div class="menu-row"><span>Pasta frola Membrillo Apto / Alfajor</span><span>$250 / $150</span></div>
+                    <div class="menu-row"><span>Pasta frola Membrillo Apto / Alfajor</span><span>$250 / $150</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -282,16 +298,22 @@
 
     <!-- 5. CLUB DE BENEFICIOS & QR (IGUAL AL REPOSITORIO) -->
     <section class="py-24 px-6 bg-[var(--crema)]">
-        <div class="max-w-6xl mx-auto glass-card p-10 md:p-24 flex flex-col md:flex-row items-center gap-20 border-2 border-orange-100 shadow-2xl">
+        <div
+            class="max-w-6xl mx-auto glass-card p-10 md:p-24 flex flex-col md:flex-row items-center gap-20 border-2 border-orange-100 shadow-2xl">
             <div class="flex-grow">
-                <h2 class="text-6xl font-bold italic mb-6 text-[var(--naranja)] italic font-serif">Club Kids Benefits.</h2>
-                <p class="text-xl mb-12 text-stone-500 font-light italic">Sumá caritas con tu visita y ganá pases libres.</p>
+                <h2 class="text-6xl font-bold italic mb-6 text-[var(--naranja)] italic font-serif">Club Kids Benefits.
+                </h2>
+                <p class="text-xl mb-12 text-stone-500 font-light italic">Sumá caritas con tu visita y ganá pases
+                    libres.</p>
                 <div class="space-y-4 font-black uppercase text-[10px] tracking-widest text-stone-400">
-                    <p>• FRIENDS SALÓN COMERCIO 2099</p> <p>• RECUMPLE SUSTENTABLE TRIPLE IMPACTO</p>
+                    <p>• FRIENDS SALÓN COMERCIO 2099</p>
+                    <p>• RECUMPLE SUSTENTABLE TRIPLE IMPACTO</p>
                 </div>
             </div>
-            <div class="relative bg-white p-4 rounded-3xl shadow-xl transform rotate-3 scale-110 cursor-zoom-in" onclick="zoom('qr.PNG')">
-                <img src="qr.PNG" alt="QR" class="w-48 h-48 rounded-xl object-contain opacity-80 hover:opacity-100 transition duration-700">
+            <div class="relative bg-white p-4 rounded-3xl shadow-xl transform rotate-3 scale-110 cursor-zoom-in"
+                onclick="zoom('img/qr.PNG')">
+                <img src="img/qr.PNG" alt="QR"
+                    class="w-48 h-48 rounded-xl object-contain opacity-80 hover:opacity-100 transition duration-700">
             </div>
         </div>
     </section>
@@ -301,149 +323,178 @@
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-7xl italic font-serif mb-20 italic">Ubicaciones Café Kids</h2>
             <div class="grid md:grid-cols-3 gap-12">
-                
+
                 <div id="loc-batlle" class="local-card-box p-12 glass-card bg-stone-50/50 shadow-inner">
                     <h3 class="text-2xl font-bold italic mb-1 font-serif text-[var(--cafe)]">Parque Batlle</h3>
-                    <p class="text-[9px] font-black uppercase opacity-40 mb-6 italic italic italic">Palmar 2448 esq Pedro Campbell</p>
-                    <div class="bg-[var(--beige)] p-3 rounded-full text-[10px] font-black uppercase italic mb-8 border border-white">L-V: 11-21 hs | S-D: 10-21 hs</div>
+                    <p class="text-[9px] font-black uppercase opacity-40 mb-6 italic italic italic">Palmar 2448 esq
+                        Pedro Campbell</p>
+                    <div
+                        class="bg-[var(--beige)] p-3 rounded-full text-[10px] font-black uppercase italic mb-8 border border-white">
+                        L-V: 11-21 hs | S-D: 10-21 hs</div>
                     <!-- FIX GOOGLE MAP BATLLE -->
-                    <iframe class="w-full h-40 rounded-3xl border-none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.2478!2d-56.1623!3d-34.9011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f8107!2sPalmar%202448!5e0!3m2!1suy"></iframe>
+                    <iframe class="w-full h-40 rounded-3xl border-none"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4763.188749952038!2d-56.160981369017236!3d-34.90142597542402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81005809f3f5%3A0x7d4c587d11342e20!2sCaf%C3%A9%20Kids!5e0!3m2!1ses-419!2suy!4v1778834874668!5m2!1ses-419!2suy"></iframe>
                 </div>
 
                 <div id="loc-nuevo" class="local-card-box p-12 glass-card bg-stone-50/50 shadow-inner">
                     <h3 class="text-2xl font-bold italic mb-1 font-serif text-[var(--cafe)]">Nuevo Centro</h3>
-                    <p class="text-[9px] font-black uppercase opacity-40 mb-6 italic italic italic">Av Dr Luis A Herrera 3444</p>
-                    <div class="bg-[var(--beige)] p-3 rounded-full text-[10px] font-black uppercase italic mb-8 border border-white">L-V: 11-21 hs | S-D: 10-21 hs</div>
+                    <p class="text-[9px] font-black uppercase opacity-40 mb-6 italic italic italic">Av Dr Luis A Herrera
+                        3444</p>
+                    <div
+                        class="bg-[var(--beige)] p-3 rounded-full text-[10px] font-black uppercase italic mb-8 border border-white">
+                        L-V: 11-21 hs | S-D: 10-21 hs</div>
                     <!-- FIX GOOGLE MAP NUEVOCENTRO -->
-                    <iframe class="w-full h-40 rounded-3xl border-none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.1!2d-56.173!3d-34.871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f806!2sLuis%20A%20de%20Herrera%203444!5e0!3m2!1suy"></iframe>
+                    <iframe class="w-full h-40 rounded-3xl border-none"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24009.025950721512!2d-56.16928358606149!3d-34.88753259595748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f8178259771cf%3A0x301b3b812e9fa5a1!2sCaf%C3%A9%20kids%202!5e0!3m2!1ses-419!2suy!4v1778834918301!5m2!1ses-419!2suy"></iframe>
                 </div>
 
                 <div id="loc-shangrila" class="local-card-box p-12 glass-card bg-[#fcf5f1] border-2 border-orange-200">
-                    <h3 class="text-2xl font-bold italic mb-1 font-serif text-orange-900 italic underline underline-offset-4 italic italic">Shangrilá</h3>
-                    <p class="text-[9px] font-black uppercase opacity-40 mb-6 italic italic italic">Venezuela & San Francisco</p>
-                    <div class="bg-orange-800 text-white p-3 rounded-full text-[10px] font-black uppercase italic mb-8 italic italic">M-D: 15 a 21 hs (L Cerrado)</div>
+                    <h3
+                        class="text-2xl font-bold italic mb-1 font-serif text-orange-900 italic underline underline-offset-4 italic italic">
+                        Shangrilá</h3>
+                    <p class="text-[9px] font-black uppercase opacity-40 mb-6 italic italic italic">Venezuela & San
+                        Francisco</p>
+                    <div
+                        class="bg-[var(--beige)] p-3 rounded-full text-[10px] font-black uppercase italic mb-8 border border-white">
+                        L-V: 11-21 hs | S-D: 10-21 hs</div>
                     <!-- FIX GOOGLE MAP SHANGRILA EXACT LOCATION -->
-                    <iframe class="w-full h-40 rounded-3xl border-none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.860157954!2d-56.0028154!3d-34.8538599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a025!2sShangrila!5e0!3m2!1suy"></iframe>
+                    <iframe class="w-full h-40 rounded-3xl border-none"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7140.810058273474!2d-56.00718001663678!3d-34.854323166616325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f89007839622b%3A0x27337e8d888de95b!2sCaf%C3%A9%20kids%203!5e0!3m2!1ses-419!2suy!4v1778834699626!5m2!1ses-419!2suy"></iframe>
                 </div>
 
             </div>
         </div>
     </section>
+    <!-- 7. CONSENTIMIENTO INFORMADO (DISEÑO MAESTRO CENTRADO) -->
+    <section id="seguridad" class="py-24 px-6 bg-[var(--beige)]">
+        <div class="max-w-4xl mx-auto compromiso-box shadow-2xl border border-white relative overflow-hidden">
 
-    <!-- 7. CONSENTIMIENTO INFORMADO (FULL LEGAL INTACTO) -->
-    <section id="compromiso-legal" class="py-24 px-6 bg-[var(--crema)]">
-        <div class="max-w-4xl mx-auto compromiso-box shadow-2xl">
-            <h2 class="text-4xl text-center mb-2 italic text-[#966b5d] italic font-serif underline decoration-[#966b5d]/10 underline-offset-8">Compromiso Café Kids</h2>
-            <p class="text-center text-[10px] font-black uppercase tracking-[0.4em] text-[#966b5d] mb-12 italic italic">Regulaciones UNIAMERICANA SAS</p>
-            
-            <div class="scroll-v h-[500px] overflow-y-auto pr-6 text-sm text-gray-500 italic leading-loose font-light">
-                <div class="space-y-8 italic">
-                    <p class="font-bold text-stone-700 underline italic underline-offset-8">I. ACUERDO DE USUARIO: CONSENTIMIENTO INFORMADO Y ASUNCIÓN DE RIESGO.</p>
-                    <p>El uso del patio de juegos y actividades físicas dentro de nuestras instalaciones tiene riesgos que podrían ocasionar lesiones físicas, emocionales, o daños a terceros (incluyendo fracturas, hematomas, lesiones en cabeza y cuerpo).</p>
-                    
-                    <div class="grid gap-6 pl-4 border-l border-stone-200">
-                        <p><strong>A)</strong> Acepto usar el patio responsablemente siguiendo normas. Negativas a normas dan revocación al derecho a instalaciones sin reclamo de devoluciones.</p>
-                        <p><strong>D/E)</strong> Autorizo transporte y transporte médico emergencia bajo mi cargo económico directo de ser necesario para el menor a cargo o mi persona.</p>
-                        <p><strong>F/G)</strong> Se mantiene a Café Kids indemne ante pérdida, reclamos o costos resultantes de omisiones directas durante la estancia en el local.</p>
-                        <p><strong>K)</strong> Registro Visual: Autoriza capturas fotos/videos institucionales p/ redes y WEB sin uso de nombres salvo autorización específica escrita por cada parte.</p>
+            <!-- Títulos Superiores Centrados -->
+            <div class="text-center mb-14 relative z-10">
+                <h2 class="text-5xl italic text-[#966b5d] font-serif mb-4">Compromiso Café Kids</h2>
+                <div class="space-y-1">
+                    <p class="text-[11px] font-black uppercase tracking-[0.5em] text-[#966b5d]">UNIAMERICANA SAS</p>
+                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400">Acuerdo de Usuario y
+                        Asunción de Riesgos</p>
+                </div>
+                <div class="w-16 h-px bg-stone-200 mx-auto mt-6"></div>
+            </div>
+
+            <!-- Área de scroll legal -->
+            <div
+                class="scroll-v h-[600px] overflow-y-auto pr-4 custom-scroll text-sm text-gray-500 italic leading-relaxed">
+
+                <div class="max-w-3xl mx-auto px-4 space-y-10">
+
+                    <!-- Introducción -->
+                    <div class="text-center">
+                        <p class="font-bold text-stone-700 uppercase tracking-widest text-[11px] mb-6">CONSENTIMIENTO
+                            INFORMADO</p>
+                        <p class="italic mb-6">El uso del patio de juegos y cualquier actividad dentro de nuestras
+                            instalaciones tiene riesgos. Estos podrían ocasionar lesiones físicas, emocionales, o daños
+                            a terceros, incluyendo la posibilidad de fracturas, esguinces, hematomas, luxaciones,
+                            lesiones en cabeza y cuerpo.</p>
+                        <p class="font-medium text-stone-600">Al entrar a nuestros espacios acuerdo, acepto y comprendo
+                            las siguientes condiciones en nombre propio y de los menores a mi cargo:</p>
                     </div>
 
-                    <div class="reglamento-brown shadow-inner italic border border-white/20">
-                        <h4 class="text-xs font-bold uppercase tracking-[0.3em] border-b border-white/20 pb-4 mb-8 italic">Reglamento Obligatorio Mandatario</h4>
-                        <ul class="space-y-6 text-xs font-bold leading-relaxed">
-                            <li>🧦 CALCETINES OBLIGATORIOS DENTRO: Calzado debe guardarse exclusivamente en zapateros.</li>
-                            <li>🍔 CERO COMIDA/BEBIDA NI JUGUETES PROPIOS: Área libre de ingestas o interferencias personales.</li>
-                            <li>👨‍👧 UN SOLO ACOMPAÑANTE POR NIÑO: El acceso está restringido para evitar hacinamientos técnicos.</li>
-                            <li>📐 ESTATURA MÁXIMA PELOTERO: Solo menores de hasta 1,50 metros (No hay excepciones por integridad física).</li>
-                            <li>❌ VIOLENCIA CERO: Terminantemente prohibido gritar, pegar, morder o maltratos entre participantes.</li>
+                    <!-- Cláusulas Legales A-L con alineación cuidada -->
+                    <div class="space-y-6 text-[13px] border-t border-stone-50 pt-10">
+                        <p><strong>A)</strong> Acepto usar el patio de juegos de forma responsable y siguiendo las
+                            normas. Cualquier negativa podría llevar a la revocación inmediata de mi derecho de uso sin
+                            devolución de pago.</p>
+                        <p><strong>B)</strong> En el caso de indisposición y/o lesión informaré al personal de inmediato
+                            sin abandonar el mismo antes de haberlo hecho.</p>
+                        <p><strong>C)</strong> Cesaré la participación de actividades en el mismo momento que la
+                            indisposición, accidente y/o lesión ocurriesen.</p>
+                        <p><strong>D)</strong> Autorizo al personal para obtener en mi nombre tratamiento y transporte
+                            médico de emergencia si ellos lo consideran adecuado.</p>
+                        <p><strong>E)</strong> Acepto asumir el cargo económico total de dicho tratamiento y transporte
+                            médico.</p>
+                        <p><strong>F)</strong> Acepto mantener al propietario de las instalaciones e inmueble indemnes
+                            de toda pérdida, responsabilidad o gastos resultantes de mis actos u omisiones.</p>
+                        <p><strong>G)</strong> Acepto y asumo todos los riesgos inherentes a la actividad; afirmo que mi
+                            participación y la de los menores es puramente voluntaria.</p>
+                        <p><strong>H)</strong> Confirmo que el estado de salud propio y el de los menores a cargo es el
+                            adecuado para participar de las actividades físicas del patio.</p>
+                        <p><strong>I)</strong> Acepto realizar solo actividades que creo poder realizar con seguridad y
+                            permaneceré en zonas que no supongan peligro.</p>
+                        <p><strong>J)</strong> Certifico que tengo cobertura suficiente como para cubrir cualquier
+                            lesión sufrida o causada; de lo contrario acepto pagar el costo resultante.</p>
+                        <p><strong>K)</strong> Autorizo al propietario a tomar fotos y videos para registro y uso en
+                            redes sociales, web y medios institucionales (sin incluir nombre del menor).</p>
+                        <p><strong>L)</strong> Acepto renunciar al fuero que me pudiera corresponder. Al firmar/entrar,
+                            acredito comprender estas condiciones y entiendo que este documento supone renunciar a
+                            importantes derechos legales de forma incondicional.</p>
+                    </div>
+
+                    <!-- EL BLOQUE MARRÓN (Reglamento) - PERFECTAMENTE CENTRADO -->
+                    <div class="reglamento-brown text-center flex flex-col items-center">
+                        <h4
+                            class="text-xs font-bold uppercase tracking-[0.3em] border-b border-white/20 pb-4 mb-10 w-full italic">
+                            Reglamento Obligatorio</h4>
+
+                        <ul class="space-y-6 text-[12px] font-bold tracking-tight">
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">👟</span>
+                                <span>USO OBLIGATORIO DE CALCETINES (ZAPATOS EN ZAPATERO).</span>
+                            </li>
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">🍕</span>
+                                <span>PROHIBIDO EL INGRESO CON COMIDA, BEBIDA O JUGUETES EXTERNOS.</span>
+                            </li>
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">🚿</span>
+                                <span>SE INGRESA ÚNICAMENTE CON MANOS LIMPIAS.</span>
+                            </li>
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">👨‍👧</span>
+                                <span>INGRESA UN SOLO ADULTO RESPONSABLE POR NIÑO AL ÁREA.</span>
+                            </li>
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">📏</span>
+                                <span>ALTURA MÁXIMA PARA PELOTERO: 1.50 MTS.</span>
+                            </li>
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">🤐</span>
+                                <span>NO SE PERMITE GRITAR, PEGAR, EMPUJAR O MORDER.</span>
+                            </li>
+                            <li class="flex flex-col items-center gap-2">
+                                <span class="text-xl">⚖️</span>
+                                <span>EL ADULTO DEBE SUPERVISAR AL MENOR EN TODO MOMENTO.</span>
+                            </li>
                         </ul>
                     </div>
+
                 </div>
             </div>
-            <p class="mt-12 text-center text-[10px] text-[#966b5d] uppercase italic opacity-60">Montevideo - Uruguay • Todos los derechos reservados UNIAMERICANA SAS</p>
+
+            <!-- Pie Final -->
+            <div class="mt-14 text-center border-t border-stone-50 pt-10 pb-2">
+                <p class="text-[10px] text-[#966b5d] uppercase tracking-[0.4em] font-black italic">Proyecto Familiar •
+                    100% Uruguayo</p>
+                <p class="text-[8px] text-stone-400 uppercase tracking-widest mt-2">© 2024-2026 Café Kids - Todos los
+                    derechos reservados</p>
+            </div>
+
         </div>
     </section>
-
     <!-- FOOTER -->
     <footer class="bg-white py-16 px-8 text-center border-t border-stone-50">
         <div class="max-w-4xl mx-auto space-y-16">
-            <img src="logo-cafekids.png" alt="Café Kids Final Logo" class="h-14 mx-auto opacity-50 transition-all grayscale hover:grayscale-0">
-            <div class="flex flex-wrap justify-center gap-12 text-[10px] font-black uppercase italic tracking-[0.4em] text-stone-300">
-                <a href="https://instagram.com/cafekids.uy">IG Official</a> <a href="#">WhatsApp Direct</a> <a href="#inicio">Regresar a Inicio</a>
+            <img src="img/logo-cafekids.png" alt="Café Kids Final Logo"
+                class="h-14 mx-auto opacity-50 transition-all grayscale hover:grayscale-0">
+            <div
+                class="flex flex-wrap justify-center gap-12 text-[10px] font-black uppercase italic tracking-[0.4em] text-stone-300">
+                <a href="https://instagram.com/cafekids.uy">IG Official</a> <a href="#">WhatsApp Direct</a> <a
+                    href="#inicio">Regresar a Inicio</a>
             </div>
-            <p class="text-[8px] font-black italic opacity-20 uppercase tracking-[0.7em] italic italic italic italic">Real Friends Uruguay Est. 2012 Montevideo 2024-2026</p>
+            <p class="text-[8px] font-black italic opacity-20 uppercase tracking-[0.7em] italic italic italic italic">
+                Real Friends Uruguay Est. 2012 Montevideo 2024-2026</p>
         </div>
     </footer>
 
-    <script>
-        // CARGADOR 2S
-        window.addEventListener('load', () => {
-            setTimeout(() => { 
-                const l = document.getElementById('loader');
-                l.style.opacity = '0';
-                setTimeout(() => { l.style.display = "none"; updateMagneticLine(); }, 600);
-            }, 2000);
-        });
-
-        // ZOOM SYSTEM
-        function zoom(src) {
-            const lb = document.getElementById('lightbox');
-            document.getElementById('lightbox-img').src = src;
-            lb.style.display = 'flex';
-            setTimeout(() => lb.classList.add('active'), 50);
-        }
-
-        // TAB SWITCH
-        function showTab(id) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.remove('hidden');
-            event.currentTarget.classList.add('active');
-        }
-
-        // INDICADOR RAYA FLUIDA
-        const nM = document.getElementById('nav-menu');
-        const ind = document.getElementById('nav-indicator');
-        const secs = document.querySelectorAll('section');
-
-        function updateMagneticLine() {
-            let fromT = window.scrollY;
-            secs.forEach(s => {
-                if(fromT >= s.offsetTop - 300) {
-                    let activeLink = document.querySelector(`.nav-link[href="#${s.getAttribute('id')}"]`);
-                    if(activeLink) {
-                        const r = activeLink.getBoundingClientRect();
-                        const pr = nM.getBoundingClientRect();
-                        ind.style.width = `${r.width}px`;
-                        ind.style.left = `${r.left - pr.left}px`;
-                        ind.style.opacity = "1";
-                    }
-                }
-            });
-        }
-        window.onscroll = updateMagneticLine;
-
-        // GPS LOGIC REALTED RESALTE
-        function findNearest() {
-            const places = [
-                { id: 'loc-batlle', lat: -34.901, lng: -56.162 },
-                { id: 'loc-nuevo', lat: -34.871, lng: -56.173 },
-                { id: 'loc-shangrila', lat: -34.853, lng: -56.002 }
-            ];
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(p => {
-                    const l = p.coords.latitude, g = p.coords.longitude;
-                    let nearest = places[0], mD = Infinity;
-                    places.forEach(pt => {
-                        let d = Math.sqrt(Math.pow(pt.lat-l,2)+Math.pow(pt.lng-g,2));
-                        if(d < mD){ mD = d; nearest = pt; }
-                    });
-                    document.getElementById(nearest.id).scrollIntoView({behavior:'smooth', block:'center'});
-                    document.querySelectorAll('.local-card-box').forEach(c => c.classList.remove('closest-highlight'));
-                    setTimeout(()=>document.getElementById(nearest.id).parentElement.classList.add('closest-highlight'), 600);
-                });
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
